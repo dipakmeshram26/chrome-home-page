@@ -1,0 +1,1073 @@
+<!-- chenge icons pn changle nahi dist  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Dashboard - Chrome Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: #00ffcc;
+            font-family: 'VT323', monospace;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            animation: glitchBg 4s infinite alternate;
+        }
+
+        @keyframes glitchBg {
+            0%, 100% { filter: none; }
+            20% { filter: brightness(1.3) contrast(1.2); transform: translate(2px, 2px); }
+            40% { filter: brightness(0.7) contrast(1.4); transform: translate(-2px, -2px); }
+            60% { filter: brightness(1.2) contrast(1.1); transform: translate(1px, -1px); }
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 1;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .greeting {
+            text-align: center;
+            animation: glowPulse 1.5s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
+            100% { text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+        }
+
+        .greeting h1 {
+            font-size: 3.5em;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .clock {
+            font-size: 1.8em;
+            font-family: 'VT323', monospace;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            animation: neonBorder 1.8s infinite alternate;
+        }
+
+        @keyframes neonBorder {
+            0% { box-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc; }
+            100% { box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 3px solid #00ffcc;
+            border-radius: 30px;
+            color: #00ffcc;
+            font-family: 'VT323', monospace;
+            font-size: 1.6em;
+            outline: none;
+            box-shadow: 0 0 20px #00ffcc;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .search-bar input:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00ffcc;
+        }
+
+        .search-bar input::placeholder {
+            color: #00ffcc;
+            opacity: 0.7;
+            text-align: center;
+        }
+
+        .tiles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .tile {
+            background: rgba(0, 0, 0, 0.6);
+            border: 3px solid #00ffcc;
+            border-radius: 12px;
+            text-align: center;
+            padding: 15px;
+            width: 120px;
+            transition: all 0.3s ease;
+            animation: tilePulse 2.5s infinite alternate;
+        }
+
+        @keyframes tilePulse {
+            0% { box-shadow: 0 0 8px #00ffcc; }
+            100% { box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+        }
+
+        .tile:hover {
+            box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc;
+            transform: scale(1.15) rotate(3deg);
+            animation: glitch 0.2s infinite;
+        }
+
+        .tile img {
+            width: 60px;
+            filter: drop-shadow(0 0 15px #00ffcc);
+        }
+
+        .tile span {
+            display: block;
+            margin-top: 8px;
+            font-size: 1.1em;
+            font-family: 'VT323', monospace;
+        }
+
+        .add-tile {
+            cursor: pointer;
+        }
+
+        .customize-btn {
+            background: transparent;
+            border: 3px solid #00ffcc;
+            color: #00ffcc;
+            padding: 10px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: neonBorder 1.8s infinite alternate;
+        }
+
+        .customize-btn:hover {
+            background: #00ffcc;
+            color: #0a0a0a;
+            box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+            transform: scale(1.1);
+            animation: glitch 0.2s infinite;
+        }
+
+        .widget {
+            background: rgba(10, 10, 10, 0.9);
+            border: 3px solid #00ffcc;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+            transition: all 0.3s ease;
+            max-width: 600px;
+            width: 100%;
+            animation: widgetFade 1s ease-in;
+        }
+
+        @keyframes widgetFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .widget:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.9);
+            transform: translateY(-5px) rotate(2deg);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .terminal {
+            max-width: 600px;
+            width: 100%;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal pre {
+            font-size: 1.1em;
+            white-space: pre-wrap;
+            color: #00ffcc;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 0 0 10px 0;
+        }
+
+        .terminal-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border: 3px solid #00ffcc;
+            border-radius: 8px;
+            padding: 0 5px;
+        }
+
+        .prefix {
+            color: #00ffcc;
+            white-space: nowrap;
+            font-size: 1.2em;
+            padding: 10px 5px;
+        }
+
+        .terminal input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 10px 0;
+            color: #00ffcc;
+            font-family: 'VT323', monospace;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .terminal input:focus {
+            box-shadow: none;
+        }
+
+        .quote {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .quote p {
+            font-style: italic;
+            font-size: 1.3em;
+            margin: 0;
+            animation: quoteGlow 2s infinite alternate;
+        }
+
+        @keyframes quoteGlow {
+            0% { text-shadow: 0 0 8px #00ffcc; }
+            100% { text-shadow: 0 0 20px #00ffcc, 0 0 35px #00ffcc; }
+        }
+
+        #modal, #customize-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: modalFade 0.5s ease-in;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #modal .widget, #customize-modal .widget {
+            max-width: 500px;
+            width: 80%;
+            position: relative;
+        }
+
+        #cancel-btn, #customize-cancel-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #ff0000;
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #cancel-btn:hover, #customize-cancel-btn:hover {
+            transform: scale(1.3);
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .add-input {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 10, 10, 0.9);
+            border: 3px solid #00ffcc;
+            border-radius: 12px;
+            padding: 20px;
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .add-input input {
+            padding: 12px;
+            background: transparent;
+            border: 3px solid #00ffcc;
+            color: #00ffcc;
+            border-radius: 8px;
+            font-family: 'VT323', monospace;
+            font-size: 1.2em;
+        }
+
+        .add-input button {
+            background: #00ffcc;
+            color: #0a0a0a;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .add-input button:hover {
+            box-shadow: 0 0 20px #00ffcc;
+            transform: scale(1.05);
+        }
+
+        .customization {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .customization select, .customization input[type="text"], .customization label {
+            font-family: 'VT323', monospace;
+            color: #00ffcc;
+            font-size: 1.2em;
+        }
+
+        .customization select, .customization input[type="text"], .customization input[type="checkbox"] {
+            background: transparent;
+            border: 3px solid #00ffcc;
+            color: #00ffcc;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .customization select:hover, .customization input[type="text"]:hover, .customization input[type="checkbox"]:hover {
+            box-shadow: 0 0 15px #00ffcc;
+            transform: scale(1.02);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch:hover {
+            animation: glitch 0.2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="modal">
+        <div class="widget terminal">
+            <h2 class="neon-text">Login Terminal</h2>
+            <input type="password" id="terminal-input" placeholder="Enter password to login..." onkeydown="if(event.key === 'Enter') runCommand()">
+            <pre id="terminal-output">[SYSTEM] Login required</pre>
+            <button id="cancel-btn" onclick="skipLogin()">✖</button>
+        </div>
+    </div>
+
+    <div class="add-input" id="add-input">
+        <input type="text" id="new-url" placeholder="Enter site URL (e.g., https://example.com)">
+        <button onclick="addNewTile()">Submit</button>
+    </div>
+
+    <div id="customize-modal" style="display: none;">
+        <div class="widget customization">
+            <h2 class="neon-text">Customize Dashboard</h2>
+            <label>Background:
+                <select id="background">
+                    <option value="matrix">Matrix Rain</option>
+                    <option value="grid">Neon Grid</option>
+                    <option value="city">Cyberpunk City</option>
+                </select>
+            </label>
+            <label>Theme:
+                <select id="theme">
+                    <option value="green">Green Neon</option>
+                    <option value="purple">Purple Neon</option>
+                    <option value="red">Red Neon</option>
+                </select>
+            </label>
+            <label>Root Username:
+                <input type="text" id="root-username" placeholder="Enter username">
+            </label>
+            <label><input type="checkbox" id="search-bar-toggle"> Show Search Bar</label>
+            <button id="customize-cancel-btn" onclick="hideCustomizeModal()">✖</button>
+        </div>
+    </div>
+
+    <div class="main-content" style="display: none;">
+        <div class="greeting">
+            <h1 class="neon-text" id="greeting-text">Hello BlackArch:2.0 ⚡</h1>
+            <div class="clock neon-text" id="clock">System Ready 🟢</div>
+        </div>
+
+        <div class="search-bar" id="search-bar" style="display: none;">
+            <input type="text" id="search" placeholder="> enter your query..." onkeydown="if(event.key === 'Enter') search()">
+        </div>
+
+        <div class="widget terminal" id="terminal-widget" style="display: none;">
+            <h2 class="neon-text">Terminal</h2>
+            <pre id="terminal-output-post-login">[SYSTEM] Type 'help' for commands</pre>
+            <div class="terminal-input-wrapper">
+                <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
+                <input type="text" id="terminal-input-post-login" onkeydown="handleTerminalKeydown(event)">
+            </div>
+        </div>
+
+        <div class="tiles" id="tiles">
+            <!-- Tiles will be dynamically populated -->
+        </div>
+
+        <button class="customize-btn glitch" onclick="showCustomizeModal()">Customize</button>
+
+        <div class="widget quote">
+            <h2 class="neon-text">Quote of the Day</h2>
+            <p id="quote" class="neon-text">"Code is poetry in motion."</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize currentColor at the top
+        let currentColor = '#00ffcc';
+
+        // Hacker-Themed Icons
+        const hackerIcons = [
+            // Terminal Icon
+            `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z'/%3E%3C/svg%3E`,
+            // Skull Icon
+            `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-10c-.83 0-1.5-.67-1.5-1.5S9.17 7 10 7s1.5.67 1.5 1.5S10.83 10 10 10zm4 0c-.83 0-1.5-.67-1.5-1.5S13.17 7 14 7s1.5.67 1.5 1.5S14.83 10 14 10zm-2 5c-1.38 0-2.5-1.12-2.5-2.5h1c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h1c0 1.38-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E`,
+            // Circuit Icon
+            `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M2 8h4v4H2V8zm4 6h4v4H6v-4zm6-6h4v4h-4V8zm4 6h4v4h-4v-4zM8 2h8v4H8V2zm0 16h8v4H8v-4z'/%3E%3C/svg%3E`,
+            // Data Stream Icon
+            `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M12 2v4l4 4-4 4v4l-4-4-4 4V12l4-4-4-4v4l4 4 4-4V2h-4zm0 8a2 2 0 100 4 2 2 0 000-4z'/%3E%3C/svg%3E`,
+            // Binary Code Icon
+            `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M7 5h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z'/%3E%3C/svg%3E`
+        ];
+
+        // Matrix Rain Background
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = currentColor;
+            ctx.font = fontSize + 'px VT323';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+
+        let backgroundInterval;
+        let background = 'matrix';
+        function updateBackground() {
+            clearInterval(backgroundInterval);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (background === 'matrix') {
+                backgroundInterval = setInterval(drawMatrix, 50);
+            } else if (background === 'grid') {
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = 0.5;
+                for (let x = 0; x < canvas.width; x += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            } else if (background === 'city') {
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#000');
+                gradient.addColorStop(1, currentColor + '66');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = currentColor;
+                for (let i = 0; i < 20; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        }
+        setInterval(updateClock, 1000);
+
+        // Search
+        function search() {
+            const query = document.getElementById('search').value;
+            window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank');
+        }
+
+        // Weather
+        let currentWeather = 'Loading...';
+        async function fetchWeather() {
+            try {
+                const res = await fetch('https://wttr.in/New+Delhi?format=%C+%t');
+                const text = await res.text();
+                currentWeather = text.trim() + ' (New Delhi)';
+            } catch (e) {
+                currentWeather = '24°C, Clear (New Delhi)';
+            }
+        }
+        fetchWeather();
+
+        // Quotes
+        const quotes = [
+            "Code is poetry in motion.",
+            "Hack the planet!",
+            "The future is written in binary.",
+            "Stay curious, stay dangerous."
+        ];
+        document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // Bookmarks Persistence
+        const defaultTiles = [
+            { url: 'https://youtube.com', name: 'YouTube' },
+            { url: 'https://mail.google.com', name: 'Gmail' },
+            { url: 'https://chat.openai.com', name: 'ChatGPT' },
+            { url: 'https://github.com', name: 'GitHub' }
+        ];
+
+        function loadTiles() {
+            const tilesContainer = document.getElementById('tiles');
+            tilesContainer.innerHTML = ''; // Clear existing tiles
+            let savedTiles = JSON.parse(localStorage.getItem('savedTiles')) || defaultTiles;
+
+            savedTiles.forEach((tile, index) => {
+                const tileElement = document.createElement('a');
+                tileElement.href = tile.url;
+                tileElement.className = 'tile glitch';
+                const iconIndex = index % hackerIcons.length; // Cycle through hacker icons
+                tileElement.innerHTML = `
+                    <img src="${hackerIcons[iconIndex]}" alt="${tile.name}">
+                    <span>${tile.name}</span>
+                `;
+                tilesContainer.appendChild(tileElement);
+            });
+
+            const addTile = document.createElement('div');
+            addTile.className = 'tile add-tile glitch';
+            addTile.onclick = showAddInput;
+            addTile.innerHTML = `
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${encodeURIComponent(currentColor.slice(1))}'%3E%3Cpath d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E" alt="+">
+                <span>Add</span>
+            `;
+            tilesContainer.appendChild(addTile);
+        }
+
+        function addNewTile() {
+            const newUrl = document.getElementById('new-url').value.trim();
+            if (newUrl) {
+                const name = newUrl.replace(/https?:\/\//, '').split('/')[0];
+                const tile = { url: newUrl.startsWith('http') ? newUrl : 'https://' + newUrl, name };
+                let savedTiles = JSON.parse(localStorage.getItem('savedTiles')) || defaultTiles;
+                savedTiles.push(tile);
+                localStorage.setItem('savedTiles', JSON.stringify(savedTiles));
+                loadTiles();
+                document.getElementById('new-url').value = '';
+                document.getElementById('add-input').style.display = 'none';
+            }
+        }
+
+        // Terminal Login
+        let isLoggedIn = false;
+        const modal = document.getElementById('modal');
+        const input = document.getElementById('terminal-input');
+        const output = document.getElementById('terminal-output');
+        let terminalHistory = [];
+        let lastBookmarkList = null;
+
+        function runCommand() {
+            const command = input.value.trim();
+            if (command === '266201') {
+                isLoggedIn = true;
+                output.textContent += '\n[SYSTEM] Access granted.\nWelcome cyber_i_dip';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    showDashboard();
+                }, 1000);
+            } else {
+                output.textContent += '\n[ERROR] Invalid password. Access denied. Try again.';
+            }
+            input.value = '';
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function skipLogin() {
+            modal.style.display = 'none';
+            showDashboard();
+            document.getElementById('terminal-widget').style.display = 'none';
+        }
+
+        function showDashboard() {
+            document.querySelector('.main-content').style.display = 'flex';
+            applyToggles();
+            updateUsernameDisplay();
+        }
+
+        // Username Management
+        function updateUsernameDisplay() {
+            const username = localStorage.getItem('rootUsername') || 'BlackArch:2.0';
+            document.getElementById('greeting-text').textContent = `Hello ${username} ⚡`;
+            document.getElementById('terminal-prefix').textContent = `${username}:~$ `;
+            document.getElementById('root-username').value = username;
+        }
+
+        // Customization Modal
+        function showCustomizeModal() {
+            document.getElementById('customize-modal').style.display = 'flex';
+        }
+
+        function hideCustomizeModal() {
+            document.getElementById('customize-modal').style.display = 'none';
+        }
+
+        // Toggle Search Bar and Username
+        function applyToggles() {
+            const showSearchBar = localStorage.getItem('showSearchBar') === 'true';
+            document.getElementById('search-bar-toggle').checked = showSearchBar;
+            document.getElementById('search-bar').style.display = showSearchBar ? 'block' : 'none';
+            document.getElementById('terminal-widget').style.display = isLoggedIn ? 'block' : 'none';
+            updateUsernameDisplay();
+        }
+
+        document.getElementById('search-bar-toggle').addEventListener('change', (e) => {
+            localStorage.setItem('showSearchBar', e.target.checked);
+            applyToggles();
+        });
+
+        document.getElementById('root-username').addEventListener('change', (e) => {
+            const username = e.target.value.trim() || 'BlackArch:2.0';
+            localStorage.setItem('rootUsername', username);
+            updateUsernameDisplay();
+        });
+
+        // Terminal Commands
+        const commandHelp = {
+            help: 'Shows this help message or details about a specific command. Usage: help [command]',
+            whoami: 'Displays user information.',
+            clear: 'Clears the terminal output.',
+            listbookmarks: 'Lists all saved bookmarks.',
+            search: 'Searches the web. Usage: search <query>',
+            open: 'Opens a bookmark. Usage: open <bookmark-name>',
+            addbookmark: 'Adds a new bookmark. Usage: addbookmark <url> [name]',
+            clearbookmarks: 'Clears all bookmarks and restores defaults.',
+            weather: 'Shows current weather for New Delhi.',
+            quote: 'Displays a random quote.',
+            theme: 'Changes the dashboard theme. Usage: theme <green|purple|red>',
+            background: 'Changes the background style. Usage: background <matrix|grid|city>',
+            clearhistory: 'Clears terminal command history.',
+            addcommand: 'Adds a custom command. Usage: addcommand <name> <action>',
+            hack: 'Initiates a fun hacking simulation.'
+        };
+
+        function handleTerminalKeydown(event) {
+            if (event.key === 'Enter') {
+                runPostLoginCommand();
+            } else if (event.key === 'Tab') {
+                event.preventDefault();
+                const input = document.getElementById('terminal-input-post-login');
+                const text = input.value.trim().toLowerCase();
+                const commands = Object.keys(commandHelp);
+                const savedTiles = JSON.parse(localStorage.getItem('savedTiles')) || defaultTiles;
+                const bookmarkNames = savedTiles.map(t => t.name.toLowerCase());
+                let suggestions = [...commands, ...bookmarkNames].filter(c => c.startsWith(text));
+
+                if (text.startsWith('b.')) {
+                    const partial = text.slice(2);
+                    suggestions = bookmarkNames.filter(name => name.startsWith(partial));
+                    if (suggestions.length > 0) {
+                        input.value = 'b.' + suggestions[0];
+                    }
+                } else if (text.startsWith('web.')) {
+                    // No auto-complete for web., as it's a search query
+                } else if (suggestions.length > 0) {
+                    input.value = suggestions[0];
+                }
+            }
+        }
+
+        function runPostLoginCommand() {
+            const postInput = document.getElementById('terminal-input-post-login');
+            const postOutput = document.getElementById('terminal-output-post-login');
+            const command = postInput.value.trim().toLowerCase();
+            let response = '';
+            const savedTiles = JSON.parse(localStorage.getItem('savedTiles')) || defaultTiles;
+            const customCommands = JSON.parse(localStorage.getItem('customCommands')) || {};
+
+            terminalHistory.push(command);
+            postOutput.textContent += `\n> ${postInput.value}`;
+
+            if (command === 'help') {
+                response = '[SYSTEM] Commands:\n' + Object.keys(commandHelp).join(', ');
+            } else if (command.startsWith('help ')) {
+                const cmd = command.slice(5).trim();
+                response = commandHelp[cmd] || `[ERROR] No help available for '${cmd}'`;
+            } else if (command === 'whoami') {
+                response = '[SYSTEM] You are ' + (localStorage.getItem('rootUsername') || 'BlackArch:2.0') + ', the cyberpunk coder!';
+            } else if (command === 'clear') {
+                postOutput.textContent = '';
+                response = '[SYSTEM] Terminal cleared';
+                lastBookmarkList = null;
+            } else if (command === 'listbookmarks') {
+                if (savedTiles.length > 0) {
+                    response = '[SYSTEM] Bookmarks:\n' + savedTiles.map((tile, index) => `${index + 1}. ${tile.name} (${tile.url})`).join('\n');
+                    lastBookmarkList = savedTiles;
+                } else {
+                    response = '[SYSTEM] No bookmarks found.';
+                    lastBookmarkList = null;
+                }
+            } else if (command.startsWith('search ')) {
+                const query = command.slice(7).trim();
+                if (query) {
+                    response = `[SYSTEM] Searching for: ${query} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank');
+                    response = '[OK] Query sent to network';
+                } else {
+                    response = '[ERROR] Search query required. Usage: search <query>';
+                }
+            } else if (command.startsWith('web.')) {
+                const query = command.slice(4).trim();
+                if (query) {
+                    response = `[SYSTEM] Searching for: ${query} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank');
+                    response = '[OK] Query sent to network';
+                } else {
+                    response = '[ERROR] Search query required after "web."';
+                }
+            } else if (command.startsWith('open ')) {
+                const bookmarkName = command.slice(5).trim().toLowerCase();
+                const tile = savedTiles.find(t => t.name.toLowerCase() === bookmarkName);
+                if (tile) {
+                    response = `[SYSTEM] Opening ${tile.name} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(tile.url, '_blank');
+                    response = '[OK] Bookmark opened';
+                } else {
+                    response = `[ERROR] Bookmark '${bookmarkName}' not found`;
+                }
+            } else if (command.startsWith('b.')) {
+                const bookmarkName = command.slice(2).trim().toLowerCase();
+                const tile = savedTiles.find(t => t.name.toLowerCase() === bookmarkName);
+                if (tile) {
+                    response = `[SYSTEM] Opening ${tile.name} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(tile.url, '_blank');
+                    response = '[OK] Bookmark opened';
+                } else {
+                    response = `[SYSTEM] Bookmarks:\n${savedTiles.map((tile, index) => `${index + 1}. ${tile.name} (${tile.url})`).join('\n') || 'None'}`;
+                    lastBookmarkList = savedTiles;
+                }
+            } else if (/^\d+$/.test(command) && lastBookmarkList) {
+                const index = parseInt(command) - 1;
+                if (index >= 0 && index < lastBookmarkList.length) {
+                    const tile = lastBookmarkList[index];
+                    response = `[SYSTEM] Opening ${tile.name} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(tile.url, '_blank');
+                    response = '[OK] Bookmark opened';
+                    lastBookmarkList = null;
+                } else {
+                    response = '[ERROR] Invalid bookmark number';
+                    lastBookmarkList = null;
+                }
+            } else if (command.startsWith('addbookmark ')) {
+                const args = command.slice(11).trim().split(' ');
+                const url = args[0];
+                const name = args[1] || url.replace(/https?:\/\//, '').split('/')[0];
+                if (url) {
+                    response = `[SYSTEM] Adding bookmark: ${name} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    const savedTiles = JSON.parse(localStorage.getItem('savedTiles')) || defaultTiles;
+                    savedTiles.push({ url: url.startsWith('http') ? url : 'https://' + url, name });
+                    localStorage.setItem('savedTiles', JSON.stringify(savedTiles));
+                    loadTiles();
+                    response = '[OK] Bookmark added';
+                } else {
+                    response = '[ERROR] URL required. Usage: addbookmark <url> [name]';
+                }
+            } else if (command === 'clearbookmarks') {
+                response = '[SYSTEM] Clearing bookmarks ...';
+                postOutput.textContent += `\n${response}`;
+                postOutput.scrollTop = postOutput.scrollHeight;
+                localStorage.removeItem('savedTiles');
+                loadTiles();
+                response = '[OK] All bookmarks cleared. Default tiles restored.';
+            } else if (command === 'weather') {
+                response = '[SYSTEM] Fetching weather ...';
+                postOutput.textContent += `\n${response}`;
+                postOutput.scrollTop = postOutput.scrollHeight;
+                response = `[OK] Weather: ${currentWeather}`;
+            } else if (command === 'quote') {
+                response = '[SYSTEM] Generating quote ...';
+                postOutput.textContent += `\n${response}`;
+                postOutput.scrollTop = postOutput.scrollHeight;
+                const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('quote').textContent = newQuote;
+                response = `[OK] Quote: ${newQuote}`;
+            } else if (command.startsWith('theme ')) {
+                const color = command.slice(6).trim().toLowerCase();
+                if (['green', 'purple', 'red'].includes(color)) {
+                    response = `[SYSTEM] Changing theme to ${color} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    document.getElementById('theme').value = color;
+                    document.getElementById('theme').dispatchEvent(new Event('change'));
+                    response = '[OK] Theme changed';
+                } else {
+                    response = '[ERROR] Invalid theme. Options: green, purple, red';
+                }
+            } else if (command.startsWith('background ')) {
+                const style = command.slice(11).trim().toLowerCase();
+                if (['matrix', 'grid', 'city'].includes(style)) {
+                    response = `[SYSTEM] Changing background to ${style} ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    document.getElementById('background').value = style;
+                    document.getElementById('background').dispatchEvent(new Event('change'));
+                    response = '[OK] Background changed';
+                } else {
+                    response = '[ERROR] Invalid background. Options: matrix, grid, city';
+                }
+            } else if (command === 'clearhistory') {
+                response = '[SYSTEM] Clearing history ...';
+                postOutput.textContent += `\n${response}`;
+                postOutput.scrollTop = postOutput.scrollHeight;
+                terminalHistory = [];
+                postOutput.textContent = '[SYSTEM] Terminal history cleared';
+                response = '';
+            } else if (command.startsWith('addcommand ')) {
+                const args = command.slice(10).trim().split(' ');
+                const name = args[0];
+                const action = args.slice(1).join(' ');
+                if (name && action) {
+                    response = `[SYSTEM] Adding command '${name}' ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    let customCommands = JSON.parse(localStorage.getItem('customCommands')) || {};
+                    customCommands[name] = action;
+                    localStorage.setItem('customCommands', JSON.stringify(customCommands));
+                    response = '[OK] Command added';
+                } else {
+                    response = '[ERROR] Name and action required. Usage: addcommand <name> <action>';
+                }
+            } else if (customCommands[command]) {
+                const action = customCommands[command];
+                if (action.startsWith('http')) {
+                    response = `[SYSTEM] Executing custom command '${command}' ...`;
+                    postOutput.textContent += `\n${response}`;
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                    window.open(action, '_blank');
+                    response = '[OK] Executed';
+                } else {
+                    response = `[SYSTEM] ${action}`;
+                }
+            } else if (command === 'hack') {
+                response = '[SYSTEM] Initiating hack ...';
+                postOutput.textContent += `\n${response}`;
+                postOutput.scrollTop = postOutput.scrollHeight;
+                setTimeout(() => {
+                    postOutput.textContent += '\n[OK] 1337 systems breached!\n[SUCCESS] You are now in the mainframe!';
+                    postOutput.scrollTop = postOutput.scrollHeight;
+                }, 1000);
+                response = '';
+            } else {
+                response = `[ERROR] Unknown command: ${command}`;
+            }
+
+            if (response) {
+                postOutput.textContent += `\n${response}`;
+            }
+            postOutput.scrollTop = postOutput.scrollHeight;
+            postInput.value = '';
+        }
+
+        // Add New Tile
+        function showAddInput() {
+            document.getElementById('add-input').style.display = 'flex';
+        }
+
+        // Update Hacker Icons with Current Theme
+        function updateHackerIcons() {
+            const colorHex = currentColor.slice(1);
+            hackerIcons.length = 0; // Clear existing icons
+            hackerIcons.push(
+                // Terminal Icon
+                `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h4v2h-4v-2z'/%3E%3C/svg%3E`,
+                // Skull Icon
+                `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-10c-.83 0-1.5-.67-1.5-1.5S9.17 7 10 7s1.5.67 1.5 1.5S10.83 10 10 10zm4 0c-.83 0-1.5-.67-1.5-1.5S13.17 7 14 7s1.5.67 1.5 1.5S14.83 10 14 10zm-2 5c-1.38 0-2.5-1.12-2.5-2.5h1c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h1c0 1.38-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E`,
+                // Circuit Icon
+                `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M2 8h4v4H2V8zm4 6h4v4H6v-4zm6-6h4v4h-4V8zm4 6h4v4h-4v-4zM8 2h8v4H8V2zm0 16h8v4H8v-4z'/%3E%3C/svg%3E`,
+                // Data Stream Icon
+                `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M12 2v4l4 4-4 4v4l-4-4-4 4V12l4-4-4-4v4l4 4 4-4V2h-4zm0 8a2 2 0 100 4 2 2 0 000-4z'/%3E%3C/svg%3E`,
+                // Binary Code Icon
+                `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M7 5h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z'/%3E%3C/svg%3E`
+            );
+        }
+
+        // Customization
+        document.getElementById('background').addEventListener('change', (e) => {
+            background = e.target.value;
+            updateBackground();
+        });
+
+        document.getElementById('theme').addEventListener('change', (e) => {
+            currentColor = e.target.value === 'purple' ? '#cc00ff' : e.target.value === 'red' ? '#ff0000' : '#00ffcc';
+            const colorHex = currentColor.slice(1);
+            const elements = document.querySelectorAll('.neon-text, .tile, .search-bar input, .customization select, .customization input[type="text"], .customization input[type="checkbox"], .terminal input, .terminal .prefix, .quote p, #terminal-input-post-login, .customize-btn');
+            elements.forEach(el => {
+                el.style.color = currentColor;
+                if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON' || el.classList.contains('tile') || el.classList.contains('customize-btn')) {
+                    el.style.borderColor = currentColor;
+                }
+                if (el.classList.contains('neon-text') || el.tagName === 'P') {
+                    el.style.textShadow = `0 0 8px ${currentColor}, 0 0 15px ${currentColor}, 0 0 25px ${currentColor}`;
+                }
+                if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON') {
+                    el.style.boxShadow = `0 0 15px ${currentColor}`;
+                }
+            });
+            document.querySelectorAll('.widget, .tile, #add-input, .terminal-input-wrapper').forEach(el => {
+                el.style.borderColor = currentColor;
+                el.style.boxShadow = `0 0 20px ${currentColor}80`;
+            });
+            document.querySelectorAll('pre').forEach(el => {
+                el.style.color = currentColor;
+            });
+            // Update hacker icons and reload tiles
+            updateHackerIcons();
+            loadTiles();
+            updateBackground();
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 't') {
+                e.preventDefault();
+                if (document.getElementById('search-bar').style.display !== 'none') {
+                    document.getElementById('search').focus();
+                } else if (isLoggedIn) {
+                    document.getElementById('terminal-input-post-login').focus();
+                }
+            }
+            if (e.ctrlKey && e.key === 'q') {
+                e.preventDefault();
+                document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            }
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+                showCustomizeModal();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            updateBackground();
+        });
+
+        // Load tiles and apply toggles on page load
+        window.onload = () => {
+            updateHackerIcons(); // Initialize icons with default color
+            loadTiles();
+            updateBackground();
+            updateClock();
+            applyToggles();
+        };
+    </script>
+</body>
+</html>
