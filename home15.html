@@ -108,7 +108,7 @@
 
         .greeting h1 {
             font-size: 3.5em;
-            margin: 0;
+           margin: 0 0 50px;
             font-family: 'Orbitron', sans-serif;
         }
 
@@ -239,7 +239,7 @@
 
         .widget {
             background: rgba(10, 10, 10, 0.9);
-            border: 3px solid #00ffcc;
+            /* border: 3px solid #00ffcc; */
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
@@ -261,10 +261,10 @@
             }
         }
 
-        .widget:hover {
+        /* .widget:hover {
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.9);
             transform: translateY(-5px) rotate(2deg);
-        }
+        } */
 
         .neon-text {
             text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
@@ -331,6 +331,7 @@
             position: absolute;
             left: 10px;
             top: 10px;
+            box-shadow: none;
 
         }
 
@@ -565,13 +566,17 @@
 
     <div class="main-content" style="display: none;">
         <div class="greeting">
-            <h1 class="neon-text" id="greeting-text">Hello BlackArch:2.0 ⚡</h1>
+            <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
             <div class="clock neon-text" id="clock">System Ready 🟢</div>
         </div>
 
         <div class="search-bar" id="search-bar" style="display: none;">
             <input type="text" id="search" placeholder="> enter your query..."
                 onkeydown="if(event.key === 'Enter') search()">
+        </div>
+
+        <div class="tiles" id="tiles">
+            <!-- Tiles will be dynamically populated -->
         </div>
 
         <div class="widget terminal" id="terminal-widget" style="display: none;">
@@ -583,14 +588,11 @@
             </div>
         </div>
 
-        <div class="tiles" id="tiles">
-            <!-- Tiles will be dynamically populated -->
-        </div>
+         
 
         <button class="customize-btn glitch" onclick="showCustomizeModal()">Customize</button>
 
         <div class="widget quote">
-            <h2 class="neon-text">Quote of the Day</h2>
             <p id="quote" class="neon-text">"Code is poetry in motion."</p>
         </div>
     </div>
