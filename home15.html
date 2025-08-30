@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +27,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         #canvas {
@@ -39,10 +45,26 @@
         }
 
         @keyframes glitchBg {
-            0%, 100% { filter: none; }
-            20% { filter: brightness(1.3) contrast(1.2); transform: translate(2px, 2px); }
-            40% { filter: brightness(0.7) contrast(1.4); transform: translate(-2px, -2px); }
-            60% { filter: brightness(1.2) contrast(1.1); transform: translate(1px, -1px); }
+
+            0%,
+            100% {
+                filter: none;
+            }
+
+            20% {
+                filter: brightness(1.3) contrast(1.2);
+                transform: translate(2px, 2px);
+            }
+
+            40% {
+                filter: brightness(0.7) contrast(1.4);
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                filter: brightness(1.2) contrast(1.1);
+                transform: translate(1px, -1px);
+            }
         }
 
         .main-content {
@@ -58,8 +80,15 @@
         }
 
         @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .greeting {
@@ -68,8 +97,13 @@
         }
 
         @keyframes glowPulse {
-            0% { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-            100% { text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+            0% {
+                text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            }
+
+            100% {
+                text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+            }
         }
 
         .greeting h1 {
@@ -79,8 +113,11 @@
         }
 
         .clock {
-            font-size: 1.8em;
+            font-size: 0.9em;
+            position: absolute;
+            right: 10px;
             font-family: 'VT323', monospace;
+            top: 10px;
         }
 
         .search-bar {
@@ -90,8 +127,13 @@
         }
 
         @keyframes neonBorder {
-            0% { box-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc; }
-            100% { box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+            0% {
+                box-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc;
+            }
+
+            100% {
+                box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+            }
         }
 
         .search-bar input {
@@ -134,14 +176,19 @@
             border-radius: 12px;
             text-align: center;
             padding: 15px;
-            width: 120px;
+            width: 78px;
             transition: all 0.3s ease;
             animation: tilePulse 2.5s infinite alternate;
         }
 
         @keyframes tilePulse {
-            0% { box-shadow: 0 0 8px #00ffcc; }
-            100% { box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+            0% {
+                box-shadow: 0 0 8px #00ffcc;
+            }
+
+            100% {
+                box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+            }
         }
 
         .tile:hover {
@@ -151,7 +198,7 @@
         }
 
         .tile img {
-            width: 60px;
+            width: 40px;
             filter: drop-shadow(0 0 15px #00ffcc);
         }
 
@@ -175,6 +222,9 @@
             font-size: 1.5em;
             border-radius: 10px;
             cursor: pointer;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
             transition: all 0.3s ease;
             animation: neonBorder 1.8s infinite alternate;
         }
@@ -200,8 +250,15 @@
         }
 
         @keyframes widgetFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .widget:hover {
@@ -268,9 +325,13 @@
         }
 
         .quote {
-            max-width: 600px;
+            max-width: 200px;
             width: 100%;
             text-align: center;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+
         }
 
         .quote p {
@@ -281,11 +342,17 @@
         }
 
         @keyframes quoteGlow {
-            0% { text-shadow: 0 0 8px #00ffcc; }
-            100% { text-shadow: 0 0 20px #00ffcc, 0 0 35px #00ffcc; }
+            0% {
+                text-shadow: 0 0 8px #00ffcc;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #00ffcc, 0 0 35px #00ffcc;
+            }
         }
 
-        #modal, #customize-modal {
+        #modal,
+        #customize-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -300,17 +367,24 @@
         }
 
         @keyframes modalFade {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        #modal .widget, #customize-modal .widget {
+        #modal .widget,
+        #customize-modal .widget {
             max-width: 500px;
             width: 80%;
             position: relative;
         }
 
-        #cancel-btn, #customize-cancel-btn {
+        #cancel-btn,
+        #customize-cancel-btn {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -322,7 +396,8 @@
             transition: all 0.3s;
         }
 
-        #cancel-btn:hover, #customize-cancel-btn:hover {
+        #cancel-btn:hover,
+        #customize-cancel-btn:hover {
             transform: scale(1.3);
             text-shadow: 0 0 10px #ff0000;
         }
@@ -344,8 +419,15 @@
         }
 
         @keyframes popIn {
-            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
         }
 
         .add-input input {
@@ -381,13 +463,17 @@
             gap: 15px;
         }
 
-        .customization select, .customization input[type="text"], .customization label {
+        .customization select,
+        .customization input[type="text"],
+        .customization label {
             font-family: 'VT323', monospace;
             color: #00ffcc;
             font-size: 1.2em;
         }
 
-        .customization select, .customization input[type="text"], .customization input[type="checkbox"] {
+        .customization select,
+        .customization input[type="text"],
+        .customization input[type="checkbox"] {
             background: transparent;
             border: 3px solid #00ffcc;
             color: #00ffcc;
@@ -396,18 +482,37 @@
             transition: all 0.3s ease;
         }
 
-        .customization select:hover, .customization input[type="text"]:hover, .customization input[type="checkbox"]:hover {
+        .customization select:hover,
+        .customization input[type="text"]:hover,
+        .customization input[type="checkbox"]:hover {
             box-shadow: 0 0 15px #00ffcc;
             transform: scale(1.02);
         }
 
         @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-3px, 3px);
+            }
+
+            40% {
+                transform: translate(-3px, -3px);
+            }
+
+            60% {
+                transform: translate(3px, 3px);
+            }
+
+            80% {
+                transform: translate(3px, -3px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
         }
 
         .glitch:hover {
@@ -415,12 +520,14 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="canvas"></canvas>
     <div id="modal">
         <div class="widget terminal">
             <h2 class="neon-text">Login Terminal</h2>
-            <input type="password" id="terminal-input" placeholder="Enter password to login..." onkeydown="if(event.key === 'Enter') runCommand()">
+            <input type="password" id="terminal-input" placeholder="Enter password to login..."
+                onkeydown="if(event.key === 'Enter') runCommand()">
             <pre id="terminal-output">[SYSTEM] Login required</pre>
             <button id="cancel-btn" onclick="skipLogin()">✖</button>
         </div>
@@ -463,7 +570,8 @@
         </div>
 
         <div class="search-bar" id="search-bar" style="display: none;">
-            <input type="text" id="search" placeholder="> enter your query..." onkeydown="if(event.key === 'Enter') search()">
+            <input type="text" id="search" placeholder="> enter your query..."
+                onkeydown="if(event.key === 'Enter') search()">
         </div>
 
         <div class="widget terminal" id="terminal-widget" style="display: none;">
@@ -1070,4 +1178,5 @@
         };
     </script>
 </body>
+
 </html>
