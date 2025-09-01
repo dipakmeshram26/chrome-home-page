@@ -4,6 +4,6 @@
   "description": "Custom hacker style homepage",
   "manifest_version": 3,
   "chrome_url_overrides": {
-    "newtab": "home16.html"
+    "newtab": "index.html"
   }
 }
