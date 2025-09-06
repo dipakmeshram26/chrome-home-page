@@ -106,12 +106,12 @@
             }
         }
 
-        .greeting img {
+        #terminal-widget img {
             width: 218px;
             position: absolute;
-            left: 30%;
-            /* right: 63%; */
-            top: -2vh;
+            left: 42%;
+
+            top: 177px;
             z-index: -1;
 
         }
@@ -152,8 +152,9 @@
 
         .time {
             position: absolute;
-            top: 109px;
-            right: -550px;
+            top: 9px;
+            left: 10px;
+            font-size: 1.4em;
 
         }
 
@@ -220,7 +221,7 @@
             transition: all 0.3s ease;
             display: flex;
             gap: 6px;
-            
+
 
         }
 
@@ -379,7 +380,7 @@
         }
 
         .terminal label {
-              color: #293d39;
+            color: #293d39;
             font-family: 'VT323', monospace;
             font-size: 1.2em;
             display: flex;
@@ -389,8 +390,8 @@
             transition: 0.5s ease-in-out;
         }
 
-        .terminal label:hover{
-             color: #019174;
+        .terminal label:hover {
+            color: #019174;
         }
 
         .terminal input[type="checkbox"] {
@@ -423,11 +424,11 @@
             width: 100%;
             text-align: center;
             position: absolute;
-                padding: 0px;
+            padding: 0px;
             right: 5px;
             top: 10px;
             box-shadow: none;
-                background: rgb(24 24 24 / 38%);
+            background: rgb(24 24 24 / 38%);
         }
 
         .quote p {
@@ -646,11 +647,12 @@
     </div>
 
     <div class="main-content">
+        <span id="clock-time" class="time">System Ready</span>
         <div class="greeting">
-            <img src="v.png" alt="" id="backimg">
+
             <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
             <div class="clock neon-text" id="clock">
-                <span id="clock-time" class="time">System Ready</span>
+
                 <span id="clock-date" class="date"></span>
             </div>
         </div>
@@ -664,6 +666,7 @@
         </div>
 
         <div class="widget terminal" id="terminal-widget">
+            <img src="v.png" alt="" id="backimg">
             <h2 class="neon-text">Terminal</h2>
             <pre
                 id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
