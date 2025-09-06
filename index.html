@@ -91,6 +91,7 @@
 
         .greeting {
 
+            position: relative;
             text-align: center;
             animation: glowPulse 1.5s infinite alternate;
         }
@@ -106,11 +107,11 @@
         }
 
         .greeting img {
-            width: 199px;
+            width: 218px;
             position: absolute;
-            left: 44%;
+            left: 30%;
             /* right: 63%; */
-            top: 20vh;
+            top: -2vh;
             z-index: -1;
 
         }
@@ -122,8 +123,8 @@
 
         .clock {
             position: absolute;
-            left: 10px;
-            top: 10px;
+            left: -61px;
+            top: 31px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -147,6 +148,13 @@
             100% {
                 text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc;
             }
+        }
+
+        .time {
+            position: absolute;
+            top: 109px;
+            right: -550px;
+
         }
 
         .search-bar {
@@ -212,7 +220,7 @@
             transition: all 0.3s ease;
             display: flex;
             gap: 6px;
-            opacity: 0.7;
+            
 
         }
 
@@ -233,6 +241,10 @@
             border: 3px solid #00ffcc;
             animation: tilePulse 2.5s infinite alternate;
             opacity: 1;
+        }
+
+        .tiles a {
+            text-decoration: none;
         }
 
         .tile img {
@@ -324,7 +336,8 @@
             border-radius: 8px;
             max-height: 200px;
             overflow-y: auto;
-            margin: 0 0 10px 0;
+
+            margin: 0 0 52px 0;
         }
 
         .terminal pre::-webkit-scrollbar {
@@ -366,13 +379,18 @@
         }
 
         .terminal label {
-            color: #00ffcc;
+              color: #293d39;
             font-family: 'VT323', monospace;
-            font-size: 1.4em;
+            font-size: 1.2em;
             display: flex;
             align-items: center;
             gap: 5px;
             white-space: nowrap;
+            transition: 0.5s ease-in-out;
+        }
+
+        .terminal label:hover{
+             color: #019174;
         }
 
         .terminal input[type="checkbox"] {
@@ -405,9 +423,11 @@
             width: 100%;
             text-align: center;
             position: absolute;
-            right: 10px;
+                padding: 0px;
+            right: 5px;
             top: 10px;
             box-shadow: none;
+                background: rgb(24 24 24 / 38%);
         }
 
         .quote p {
@@ -630,8 +650,8 @@
             <img src="v.png" alt="" id="backimg">
             <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
             <div class="clock neon-text" id="clock">
-                <span id="clock-time">System Ready</span>
-                <span id="clock-date"></span>
+                <span id="clock-time" class="time">System Ready</span>
+                <span id="clock-date" class="date"></span>
             </div>
         </div>
 
@@ -645,11 +665,12 @@
 
         <div class="widget terminal" id="terminal-widget">
             <h2 class="neon-text">Terminal</h2>
-            <pre id="terminal-output-post-login">[SYSTEM] Type 'help' for commands</pre>
+            <pre
+                id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
             <div class="terminal-input-wrapper">
                 <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
                 <input type="text" id="terminal-input-post-login">
-                <label><input type="checkbox" id="web-search-toggle" checked> Enable Web Search</label>
+                <label><input type="checkbox" id="web-search-toggle" checked>Web</label>
             </div>
         </div>
 
