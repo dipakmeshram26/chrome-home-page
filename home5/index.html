@@ -1,0 +1,77 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Dashboard - Chrome Style</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="add-input" id="add-input">
+        <input type="text" id="new-url" placeholder="Enter site URL (e.g., https://example.com)">
+        <button id="add-tile-btn">Submit</button>
+    </div>
+
+    <div id="customize-modal" style="display: none;">
+        <div class="widget customization">
+            <h2 class="neon-text">Customize Dashboard</h2>
+            <label>Background:
+                <select id="background">
+                    <option value="matrix">Matrix Rain</option>
+                    <option value="grid">Neon Grid</option>
+                    <option value="city">Cyberpunk City</option>
+                </select>
+            </label>
+            <label>Theme:
+                <select id="theme">
+                    <option value="green">Green Neon</option>
+                    <option value="purple">Purple Neon</option>
+                    <option value="red">Red Neon</option>
+                </select>
+            </label>
+            <label>Root Username:
+                <input type="text" id="root-username" placeholder="Enter username">
+            </label>
+            <label><input type="checkbox" id="search-bar-toggle"> Show Search Bar</label>
+            <button id="customize-cancel-btn">✖</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <span id="clock-time" class="time">System Ready</span>
+        <div class="greeting">
+            <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
+            <div class="clock neon-text" id="clock">
+                <span id="clock-date" class="date"></span>
+            </div>
+        </div>
+
+        <div class="search-bar" id="search-bar" style="display: none;">
+            <input type="text" id="search" placeholder="> enter your query...">
+        </div>
+
+        <div class="tiles" id="tiles">
+            <!-- Tiles will be dynamically populated -->
+        </div>
+
+        <div class="widget terminal" id="terminal-widget">
+            <img src="v.png" alt="" id="backimg">
+            <h2 class="neon-text">Terminal</h2>
+            <pre id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
+            <div class="terminal-input-wrapper">
+                <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
+                <input type="text" id="terminal-input-post-login">
+                <label><input type="checkbox" id="web-search-toggle" checked>Web</label>
+            </div>
+        </div>
+
+        <button class="customize-btn glitch" id="customize-btn">C</button>
+
+        <div class="widget quote">
+            <p id="quote" class="neon-text">"Code is poetry in motion."</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
