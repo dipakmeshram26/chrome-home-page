@@ -1,11 +1,13 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberpunk Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <canvas id="canvas"></canvas>
     <div class="add-input" id="add-input">
@@ -54,11 +56,13 @@
         <div class="tiles" id="tiles">
             <!-- Tiles will be dynamically populated -->
         </div>
+        <div id="weather" class="widget neon-text">Loading...</div>
 
         <div class="widget terminal" id="terminal-widget">
             <img src="v.png" alt="" id="backimg">
             <h2 class="neon-text">Terminal</h2>
-            <pre id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
+            <pre
+                id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
             <div class="terminal-input-wrapper">
                 <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
                 <input type="text" id="terminal-input-post-login">
@@ -67,6 +71,25 @@
         </div>
 
         <button class="customize-btn glitch" id="customize-btn">C</button>
+        <!-- <div id="customize-modal" class="modal">
+            <div class="modal-content">
+                <h2>Customize Dashboard</h2>
+                <div class="customization">
+                    <label>Username:</label>
+                    <input type="text" id="root-username" placeholder="Enter username">
+                    <label>Show Search Bar:</label>
+                    <input type="checkbox" id="search-bar-toggle">
+                    <label>Enable Web Search:</label>
+                    <input type="checkbox" id="web-search-toggle">
+                    <label>Theme:</label>
+                    <select id="theme"></select>
+                    <label>Background:</label>
+                    <select id="background"></select>
+                </div>
+                <button id="customize-cancel-btn">Cancel</button>
+            </div>
+        </div> -->
+
 
         <div class="widget quote">
             <p id="quote" class="neon-text">"Code is poetry in motion."</p>
@@ -74,4 +97,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
