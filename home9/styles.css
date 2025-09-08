@@ -66,6 +66,7 @@ body {
 
 .greeting h1 {
     font-size: 4.5em;
+    margin: 0;
     font-family: 'Orbitron', sans-serif;
 }
 
@@ -84,7 +85,11 @@ body {
 }
 
 .clock span {
-    line-height: 1.2;
+     line-height: 1.2;
+    position: absolute;
+    width: 15vh;
+    left: 10px;
+    top: -49px;
 }
 
 @keyframes neonPulse {
@@ -350,7 +355,6 @@ body {
     padding: 12px;
     display: flex;
      backdrop-filter: blur(3px);
-
     text-align: center;
     background: transparent;
     justify-content: center;
@@ -528,14 +532,15 @@ body {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 0, 0, 0.9);
+    background: rgba(73, 1, 1, 0.589);
     color: #ffcccc;
     padding: 15px 30px;
-    border: 2px solid #ff0000;
+    border: 1px solid #ff0000;
     border-radius: 10px;
     box-shadow: 0 0 15px #ff0000;
     z-index: 2000;
     display: flex;
+    backdrop-filter: blur(13px);
     justify-content: space-between;
     align-items: center;
     font-family: 'VT323', monospace;
@@ -548,13 +553,18 @@ body {
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+ 
+
 .error-popup .close-btn {
     background: transparent;
     border: none;
     color: #ffcccc;
-    font-size: 1.5em;
+    font-size: 1em;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: absolute;
+    right: 5px;
+    top: 3px;
 }
 
 .error-popup .close-btn:hover {
