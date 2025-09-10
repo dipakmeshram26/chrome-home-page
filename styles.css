@@ -99,9 +99,14 @@ body {
 
 .time {
     position: absolute;
-    top: 9px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     font-size: 1.4em;
+    box-shadow: 0 0 14px #08876fe0;
+    padding: 6px 10px;
+    background: transparent;
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
 }
 
 .search-bar {
