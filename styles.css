@@ -17,9 +17,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
+
 
 #canvas {
     position: fixed;
@@ -30,10 +36,26 @@ body {
 }
 
 @keyframes glitchBg {
-    0%, 100% { filter: none; }
-    20% { filter: brightness(1.3) contrast(1.2); transform: translate(2px, 2px); }
-    40% { filter: brightness(0.7) contrast(1.4); transform: translate(-2px, -2px); }
-    60% { filter: brightness(1.2) contrast(1.1); transform: translate(1px, -1px); }
+
+    0%,
+    100% {
+        filter: none;
+    }
+
+    20% {
+        filter: brightness(1.3) contrast(1.2);
+        transform: translate(2px, 2px);
+    }
+
+    40% {
+        filter: brightness(0.7) contrast(1.4);
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        filter: brightness(1.2) contrast(1.1);
+        transform: translate(1px, -1px);
+    }
 }
 
 .main-content {
@@ -49,8 +71,15 @@ body {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .greeting {
@@ -60,8 +89,13 @@ body {
 }
 
 @keyframes glowPulse {
-    0% { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-    100% { text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+    0% {
+        text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+    }
+
+    100% {
+        text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+    }
 }
 
 .greeting h1 {
@@ -85,16 +119,21 @@ body {
 }
 
 .clock span {
-     line-height: 1.2;
+    line-height: 1.2;
     position: absolute;
-    width: 15vh;
+    width: 20vh;
     left: 10px;
     top: -49px;
 }
 
 @keyframes neonPulse {
-    0% { text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc; }
-    100% { text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+    0% {
+        text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+    }
+
+    100% {
+        text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+    }
 }
 
 .time {
@@ -116,8 +155,13 @@ body {
 }
 
 @keyframes neonBorder {
-    0% { box-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc; }
-    100% { box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc; }
+    0% {
+        box-shadow: 0 0 12px #00ffcc, 0 0 20px #00ffcc;
+    }
+
+    100% {
+        box-shadow: 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+    }
 }
 
 .search-bar input {
@@ -169,8 +213,13 @@ body {
 }
 
 @keyframes tilePulse {
-    0% { box-shadow: 0 0 8px #00ffcc; }
-    100% { box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    0% {
+        box-shadow: 0 0 8px #00ffcc;
+    }
+
+    100% {
+        box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+    }
 }
 
 .tile:hover {
@@ -239,8 +288,15 @@ body {
 }
 
 @keyframes widgetFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .neon-text {
@@ -267,10 +323,9 @@ body {
 }
 
 .terminal pre {
-    font-size: 1.4em;
+    font-size: 1em;
     white-space: pre-wrap;
     color: #00ffcc;
-    background: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 8px;
     max-height: 200px;
@@ -351,15 +406,15 @@ body {
 }
 
 
-#weather{
-   position: absolute;
+#weather {
+    position: absolute;
     top: 10px;
-        right: 10px;
+    right: 10px;
     width: 29vh;
     margin: 6px;
     padding: 12px;
     display: flex;
-     backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
     text-align: center;
     background: transparent;
     justify-content: center;
@@ -371,13 +426,13 @@ body {
 }
 
 .quote {
-        max-width: 200px;
+    max-width: 200px;
     width: 100%;
     text-align: center;
     position: absolute;
     padding: 7px;
     border-radius: 5px;
-       right: 17px;
+    right: 17px;
     font-size: 0.9em;
     backdrop-filter: blur(3px);
     top: 75px;
@@ -393,8 +448,13 @@ body {
 }
 
 @keyframes quoteGlow {
-    0% { text-shadow: 0 0 8px #00ffcc; }
-    100% { text-shadow: 0 0 20px #00ffcc, 0 0 35px #00ffcc; }
+    0% {
+        text-shadow: 0 0 8px #00ffcc;
+    }
+
+    100% {
+        text-shadow: 0 0 20px #00ffcc, 0 0 35px #00ffcc;
+    }
 }
 
 #customize-modal {
@@ -412,8 +472,13 @@ body {
 }
 
 @keyframes modalFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 #customize-modal .widget {
@@ -456,8 +521,15 @@ body {
 }
 
 @keyframes popIn {
-    from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .add-input input {
@@ -520,12 +592,29 @@ body {
 }
 
 @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-3px, 3px); }
-    40% { transform: translate(-3px, -3px); }
-    60% { transform: translate(3px, 3px); }
-    80% { transform: translate(3px, -3px); }
-    100% { transform: translate(0); }
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-3px, 3px);
+    }
+
+    40% {
+        transform: translate(-3px, -3px);
+    }
+
+    60% {
+        transform: translate(3px, 3px);
+    }
+
+    80% {
+        transform: translate(3px, -3px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
 }
 
 .glitch:hover {
@@ -554,11 +643,18 @@ body {
 }
 
 @keyframes popupFadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
- 
+
 
 .error-popup .close-btn {
     background: transparent;
@@ -576,4 +672,155 @@ body {
     color: #ff0000;
     transform: scale(1.2);
     text-shadow: 0 0 10px #ff0000;
+}
+
+
+@media (max-width: 480px) {
+
+    .widget {
+        border-radius: 12px;
+
+    }
+
+
+    .time {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 1.2em;
+    }
+
+    .clock span {
+    line-height: 1.2;
+    position: absolute;
+    width: 15vh;
+    }
+
+    #weather {
+        top: 5px;
+        right: 5px;
+        width: 21vh;
+        margin: 0px;
+        padding: 5px;
+        font-size: 0.7em;
+    }
+
+
+    .quote {
+        max-width: 140px;
+        padding: 5px;
+        border-radius: 5px;
+        right: 5px;
+        top: 33px;
+    }
+
+    .quote p {
+        font-style: italic;
+        font-size: 0.7em;
+        margin: 0;
+    }
+
+
+    .greeting h1 {
+        font-size: 2.5em;
+    }
+
+    .clock span {
+        width: 20vh;
+        left: 10px;
+        top: -49px;
+        font-size: 0.8em;
+    }
+
+    .prefix {
+        font-size: 1.2em;
+        padding: 4px 4px;
+    }
+
+    .main-content {
+        padding: none;
+        gap: 4px
+    }
+
+    .terminal {
+        max-width: 400px;
+        backdrop-filter: blur(10px);
+    }
+
+    .terminal .neon-text {
+        margin: 5px 0 18px 0px;
+        font-size: 1.3em;
+    }
+
+    .terminal label {
+    color: #293d39;
+    font-family: 'VT323', monospace;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: 0.5s ease-in-out;
+}
+
+    .terminal pre {
+        font-size: 1em;
+        padding: 5px;
+        margin: 0 0 15px 0;
+
+    }
+
+    .terminal-input-wrapper {
+        border: 0.5px solid #05755e;
+        border-radius: 31px;
+        padding: 0 10px;
+        gap: 4px;
+    }
+
+    .main-content {
+        gap: 4px
+    }
+
+
+
+
+
+    .tiles {
+        gap: 5px;
+        bottom: 12px;
+    }
+
+    .tile {
+        border-radius: 4px;
+        padding: 3px;
+        gap: 2px;
+    }
+
+    .tile span {
+        display: block;
+        font-size: 0.9em;
+    }
+
+    .customize-btn {
+        padding: 3px 6px;
+        font-size: 1.2em;
+        right: 5px;
+        bottom: 10px;
+                opacity: 0.3;
+    }
+
+}
+
+@media (max-width: 455px){
+
+    .widget {
+    padding: 16px;
+    }
+
+    .terminal {
+        max-width: 350px;
+    }
 }
