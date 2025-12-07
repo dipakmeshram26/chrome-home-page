@@ -1,4 +1,12 @@
- @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Dashboard - Chrome Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap');
 
         body {
             margin: 0;
@@ -82,6 +90,8 @@
         }
 
         .greeting {
+
+            position: relative;
             text-align: center;
             animation: glowPulse 1.5s infinite alternate;
         }
@@ -96,18 +106,48 @@
             }
         }
 
+      
+
         .greeting h1 {
-            font-size: 3.5em;
-           margin: 0 0 50px;
+            font-size: 4.5em;
             font-family: 'Orbitron', sans-serif;
         }
 
         .clock {
-            font-size: 0.9em;
             position: absolute;
-            right: 10px;
-            font-family: 'VT323', monospace;
-            top: 10px;
+            left: -61px;
+            top: 31px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            background: #000000a1;
+            gap: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+
+        }
+
+        .clock span {
+            line-height: 1.2;
+        }
+
+        @keyframes neonPulse {
+            0% {
+                text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+            }
+
+            100% {
+                text-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc, 0 0 40px #00ffcc;
+            }
+        }
+
+        .time {
+            position: absolute;
+            top: 9px;
+            left: 10px;
+            font-size: 1.4em;
+
         }
 
         .search-bar {
@@ -157,18 +197,24 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
-            margin: 20px 0;
+            flex-direction: row;
+            position: absolute;
+            bottom: 15px;
         }
+
 
         .tile {
             background: rgba(0, 0, 0, 0.6);
-            border: 3px solid #00ffcc;
+            box-shadow: 0 0 8px #00ffcc;
+            border: 3px solid transparent;
             border-radius: 12px;
             text-align: center;
-            padding: 15px;
-            width: 78px;
+            padding: 10px;
             transition: all 0.3s ease;
-            animation: tilePulse 2.5s infinite alternate;
+            display: flex;
+            gap: 6px;
+
+
         }
 
         @keyframes tilePulse {
@@ -185,17 +231,25 @@
             box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc;
             transform: scale(1.15) rotate(3deg);
             animation: glitch 0.2s infinite;
+            border: 3px solid #00ffcc;
+            animation: tilePulse 2.5s infinite alternate;
+            opacity: 1;
+        }
+
+        .tiles a {
+            text-decoration: none;
         }
 
         .tile img {
-            width: 40px;
+            width: 16px;
             filter: drop-shadow(0 0 15px #00ffcc);
         }
 
         .tile span {
             display: block;
-            margin-top: 8px;
             font-size: 1.1em;
+            color: #339c33;
+            text-decoration: none;
             font-family: 'VT323', monospace;
         }
 
@@ -205,9 +259,10 @@
 
         .customize-btn {
             background: transparent;
-            border: 3px solid #00ffcc;
+            border: 1px solid #00ffcc;
             color: #00ffcc;
-            padding: 10px 20px;
+            box-shadow: 0 0 20px #00ffcc;
+            padding: 3px 12px;
             font-family: 'VT323', monospace;
             font-size: 1.5em;
             border-radius: 10px;
@@ -216,7 +271,7 @@
             right: 10px;
             bottom: 10px;
             transition: all 0.3s ease;
-            animation: neonBorder 1.8s infinite alternate;
+            /* animation: neonBorder 1.8s infinite alternate; */
         }
 
         .customize-btn:hover {
@@ -229,7 +284,6 @@
 
         .widget {
             background: rgba(10, 10, 10, 0.9);
-            /* border: 3px solid #00ffcc; */
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
@@ -253,6 +307,7 @@
 
         .neon-text {
             text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+            text-shadow: 0 0 8px #00ffcc, 0 0 15px #000000, 0 0 25px #000000;
             color: #00ffcc;
             font-family: 'Orbitron', sans-serif;
         }
@@ -265,8 +320,17 @@
             flex-direction: column;
         }
 
+           #terminal-widget img {
+            width: 218px;
+            position: absolute;
+            left: 43%;
+
+            top: 177px;
+            z-index: -1;
+
+        }
         .terminal pre {
-            font-size: 1.1em;
+            font-size: 1.4em;
             white-space: pre-wrap;
             color: #00ffcc;
             background: rgba(0, 0, 0, 0.6);
@@ -274,26 +338,33 @@
             border-radius: 8px;
             max-height: 200px;
             overflow-y: auto;
-            margin: 0 0 10px 0;
+
+            margin: 0 0 52px 0;
+        }
+
+        .terminal pre::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari */
         }
 
         .terminal-input-wrapper {
             display: flex;
             align-items: center;
             background: transparent;
-            border: 3px solid #00ffcc;
+            border: 1px solid #00ffcc;
             border-radius: 8px;
             padding: 0 5px;
+            gap: 10px;
         }
 
         .prefix {
             color: #00ffcc;
             white-space: nowrap;
-            font-size: 1.2em;
+            font-size: 1.4em;
             padding: 10px 5px;
         }
 
-        .terminal input {
+        .terminal input[type="text"] {
             flex: 1;
             border: none;
             background: transparent;
@@ -301,12 +372,52 @@
             padding: 10px 0;
             color: #00ffcc;
             font-family: 'VT323', monospace;
-            font-size: 1.2em;
+            font-size: 1.4em;
             transition: all 0.3s ease;
         }
 
-        .terminal input:focus {
+        .terminal input[type="text"]:focus {
             box-shadow: none;
+        }
+
+        .terminal label {
+            color: #293d39;
+            font-family: 'VT323', monospace;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            transition: 0.5s ease-in-out;
+        }
+
+        .terminal label:hover {
+            color: #019174;
+        }
+
+        .terminal input[type="checkbox"] {
+            appearance: none;
+            /* -webkit-appearance: none; */
+            /* for Safari/Chrome */
+            /* background: transparent; */
+            border: 3px solid #00ffcc;
+            border-radius: 50px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+
+        .terminal input[type="checkbox"]:hover {
+            box-shadow: 0 0 15px #00ffcc;
+            transform: scale(1.1);
+        }
+
+        .terminal input[type="checkbox"]:checked {
+            /* background-color: rgb(0, 255, 149); */
+            /* your custom color */
+            border-color: red;
         }
 
         .quote {
@@ -314,14 +425,16 @@
             width: 100%;
             text-align: center;
             position: absolute;
-            left: 10px;
+            padding: 0px;
+            right: 5px;
             top: 10px;
             box-shadow: none;
+            background: rgb(24 24 24 / 38%);
         }
 
         .quote p {
             font-style: italic;
-            font-size: 1.3em;
+            font-size: 0.9em;
             margin: 0;
             animation: quoteGlow 2s infinite alternate;
         }
@@ -342,7 +455,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgb(0 0 0 / 79%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -499,3 +612,80 @@
         .glitch:hover {
             animation: glitch 0.2s infinite;
         }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="add-input" id="add-input">
+        <input type="text" id="new-url" placeholder="Enter site URL (e.g., https://example.com)">
+        <button id="add-tile-btn">Submit</button>
+    </div>
+
+    <div id="customize-modal" style="display: none;">
+        <div class="widget customization">
+            <h2 class="neon-text">Customize Dashboard</h2>
+            <label>Background:
+                <select id="background">
+                    <option value="matrix">Matrix Rain</option>
+                    <option value="grid">Neon Grid</option>
+                    <option value="city">Cyberpunk City</option>
+                </select>
+            </label>
+            <label>Theme:
+                <select id="theme">
+                    <option value="green">Green Neon</option>
+                    <option value="purple">Purple Neon</option>
+                    <option value="red">Red Neon</option>
+                </select>
+            </label>
+            <label>Root Username:
+                <input type="text" id="root-username" placeholder="Enter username">
+            </label>
+            <label><input type="checkbox" id="search-bar-toggle"> Show Search Bar</label>
+            <button id="customize-cancel-btn">✖</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <span id="clock-time" class="time">System Ready</span>
+        <div class="greeting">
+
+            <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
+            <div class="clock neon-text" id="clock">
+
+                <span id="clock-date" class="date"></span>
+            </div>
+        </div>
+
+        <div class="search-bar" id="search-bar" style="display: none;">
+            <input type="text" id="search" placeholder="> enter your query...">
+        </div>
+
+        <div class="tiles" id="tiles">
+            <!-- Tiles will be dynamically populated -->
+        </div>
+
+        <div class="widget terminal" id="terminal-widget">
+            <img src="v.png" alt="" id="backimg">
+            <h2 class="neon-text">Terminal</h2>
+            <pre
+                id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
+            <div class="terminal-input-wrapper">
+                <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
+                <input type="text" id="terminal-input-post-login">
+                <label><input type="checkbox" id="web-search-toggle" checked>Web</label>
+            </div>
+        </div>
+
+        <button class="customize-btn glitch" id="customize-btn">C</button>
+
+        <div class="widget quote">
+            <p id="quote" class="neon-text">"Code is poetry in motion."</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

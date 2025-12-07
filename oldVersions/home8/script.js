@@ -12,14 +12,14 @@ const themes = {
     cyberPink: '#ff69b4',
     midnightBlack: '#1a1a2e',
     lavaOrange: '#ff4500',
-    multiColor: null
+    multiColor: null // Dynamic multi-color
 };
 
 // Backgrounds
 const backgrounds = {
     matrix: 'matrix',
     grid: 'grid',
-    cityscape: 'cityscape',
+    cityscape: 'city',
     glitch: 'glitch',
     neonGrid: 'neonGrid',
     starryNight: 'starryNight',
@@ -433,15 +433,6 @@ function showCustomizeModal() {
         const modal = document.getElementById('customize-modal');
         if (!modal) throw new Error('Customize modal not found');
         modal.style.display = 'flex';
-        // Populate theme and background selects
-        const themeSelect = document.getElementById('theme');
-        const backgroundSelect = document.getElementById('background');
-        if (themeSelect && backgroundSelect) {
-            themeSelect.innerHTML = Object.keys(themes).map(theme => `<option value="${theme}">${theme}</option>`).join('');
-            backgroundSelect.innerHTML = Object.keys(backgrounds).map(bg => `<option value="${bg}">${bg}</option>`).join('');
-            themeSelect.value = Object.keys(themes).find(t => themes[t] === currentColor) || 'neonGreen';
-            backgroundSelect.value = background;
-        }
     } catch (e) {
         console.error('Show customize modal failed:', e);
         showErrorPopup(e.message);

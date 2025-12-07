@@ -1,32 +1,4 @@
 let currentColor = '#00ffcc';
-let backgroundInterval;
-let background = 'matrix';
-
-// Themes
-const themes = {
-    neonGreen: '#00ffcc',
-    purpleHaze: '#cc00ff',
-    bloodRed: '#ff0000',
-    electricBlue: '#00ccff',
-    goldenGlow: '#ffd700',
-    cyberPink: '#ff69b4',
-    midnightBlack: '#1a1a2e',
-    lavaOrange: '#ff4500',
-    multiColor: null
-};
-
-// Backgrounds
-const backgrounds = {
-    matrix: 'matrix',
-    grid: 'grid',
-    cityscape: 'cityscape',
-    glitch: 'glitch',
-    neonGrid: 'neonGrid',
-    starryNight: 'starryNight',
-    pixelRain: 'pixelRain',
-    digitalWaves: 'digitalWaves',
-    cosmicFlow: 'cosmicFlow'
-};
 
 // Matrix Rain Background
 function initMatrixRain() {
@@ -58,177 +30,12 @@ function initMatrixRain() {
         return setInterval(drawMatrix, 50);
     } catch (e) {
         console.error('Matrix rain initialization failed:', e);
-        showErrorPopup(e.message);
         return null;
     }
 }
 
-// Grid Background
-function drawGrid() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = currentColor;
-        ctx.lineWidth = 0.5;
-        for (let x = 0; x < canvas.width; x += 50) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        for (let y = 0; y < canvas.height; y += 50) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-    } catch (e) {
-        console.error('Grid background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Cityscape Background
-function drawCityscape() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#000');
-        gradient.addColorStop(1, currentColor + '66');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = currentColor;
-        for (let i = 0; i < 20; i++) {
-            ctx.beginPath();
-            ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-            ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-            ctx.stroke();
-        }
-    } catch (e) {
-        console.error('Cityscape background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Glitch Background
-function drawGlitch() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < 10; i++) {
-            ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-            ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 50, 50);
-        }
-    } catch (e) {
-        console.error('Glitch background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Neon Grid Background
-function drawNeonGrid() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = currentColor;
-        ctx.lineWidth = 1;
-        for (let x = 0; x < canvas.width; x += 30) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        for (let y = 0; y < canvas.height; y += 30) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-    } catch (e) {
-        console.error('Neon grid background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Starry Night Background
-function drawStarryNight() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < 100; i++) {
-            ctx.fillStyle = currentColor;
-            ctx.beginPath();
-            ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    } catch (e) {
-        console.error('Starry night background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Pixel Rain Background
-function drawPixelRain() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < 50; i++) {
-            ctx.fillStyle = currentColor;
-            ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 5, 5);
-        }
-    } catch (e) {
-        console.error('Pixel rain background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Digital Waves Background
-function drawDigitalWaves() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < canvas.height; i += 20) {
-            ctx.beginPath();
-            ctx.moveTo(0, i);
-            ctx.bezierCurveTo(canvas.width / 3, i + Math.random() * 20, 2 * canvas.width / 3, i + Math.random() * 20, canvas.width, i);
-            ctx.strokeStyle = currentColor;
-            ctx.stroke();
-        }
-    } catch (e) {
-        console.error('Digital waves background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
-// Cosmic Flow Background
-function drawCosmicFlow() {
-    try {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2);
-        gradient.addColorStop(0, currentColor);
-        gradient.addColorStop(1, '#000');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    } catch (e) {
-        console.error('Cosmic flow background failed:', e);
-        showErrorPopup(e.message);
-    }
-}
-
+let backgroundInterval;
+let background = 'matrix';
 function updateBackground() {
     try {
         clearInterval(backgroundInterval);
@@ -239,25 +46,36 @@ function updateBackground() {
         if (background === 'matrix') {
             backgroundInterval = initMatrixRain();
         } else if (background === 'grid') {
-            drawGrid();
-        } else if (background === 'cityscape') {
-            drawCityscape();
-        } else if (background === 'glitch') {
-            drawGlitch();
-        } else if (background === 'neonGrid') {
-            drawNeonGrid();
-        } else if (background === 'starryNight') {
-            drawStarryNight();
-        } else if (background === 'pixelRain') {
-            drawPixelRain();
-        } else if (background === 'digitalWaves') {
-            drawDigitalWaves();
-        } else if (background === 'cosmicFlow') {
-            drawCosmicFlow();
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x < canvas.width; x += 50) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        } else if (background === 'city') {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#000');
+            gradient.addColorStop(1, currentColor + '66');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = currentColor;
+            for (let i = 0; i < 20; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.stroke();
+            }
         }
     } catch (e) {
         console.error('Background update failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -277,7 +95,6 @@ function updateClock() {
         }
     } catch (e) {
         console.error('Clock update failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -292,7 +109,6 @@ function search() {
         }
     } catch (e) {
         console.error('Search failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -303,26 +119,9 @@ async function fetchWeather() {
         const res = await fetch('https://wttr.in/New+Delhi?format=%C+%t');
         const text = await res.text();
         currentWeather = text.trim() + ' (New Delhi)';
-        updateWeatherDisplay();
     } catch (e) {
         console.error('Weather fetch failed:', e);
         currentWeather = '24°C, Clear (New Delhi)';
-        updateWeatherDisplay();
-        showErrorPopup(e.message);
-    }
-}
-
-function updateWeatherDisplay() {
-    try {
-        const weatherElement = document.getElementById('weather');
-        if (weatherElement) {
-            weatherElement.textContent = currentWeather;
-        } else {
-            throw new Error('Weather element not found');
-        }
-    } catch (e) {
-        console.error('Weather display failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -340,7 +139,6 @@ function initQuote() {
         quoteElement.textContent = quotes[Math.floor(Math.random() * quotes.length)];
     } catch (e) {
         console.error('Quote initialization failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -380,7 +178,6 @@ function loadTiles() {
         addTile.addEventListener('click', showAddInput);
     } catch (e) {
         console.error('Tile loading failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -402,7 +199,6 @@ function addNewTile() {
         }
     } catch (e) {
         console.error('Add tile failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -423,7 +219,6 @@ function updateUsernameDisplay() {
         rootUsernameInput.value = username;
     } catch (e) {
         console.error('Username update failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -433,18 +228,8 @@ function showCustomizeModal() {
         const modal = document.getElementById('customize-modal');
         if (!modal) throw new Error('Customize modal not found');
         modal.style.display = 'flex';
-        // Populate theme and background selects
-        const themeSelect = document.getElementById('theme');
-        const backgroundSelect = document.getElementById('background');
-        if (themeSelect && backgroundSelect) {
-            themeSelect.innerHTML = Object.keys(themes).map(theme => `<option value="${theme}">${theme}</option>`).join('');
-            backgroundSelect.innerHTML = Object.keys(backgrounds).map(bg => `<option value="${bg}">${bg}</option>`).join('');
-            themeSelect.value = Object.keys(themes).find(t => themes[t] === currentColor) || 'neonGreen';
-            backgroundSelect.value = background;
-        }
     } catch (e) {
         console.error('Show customize modal failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -455,7 +240,6 @@ function hideCustomizeModal() {
         modal.style.display = 'none';
     } catch (e) {
         console.error('Hide customize modal failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -478,7 +262,6 @@ function applyToggles() {
         updateUsernameDisplay();
     } catch (e) {
         console.error('Apply toggles failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -494,8 +277,8 @@ const commandHelp = {
     clearbookmarks: 'Clears all bookmarks and restores defaults.',
     weather: 'Shows current weather for New Delhi.',
     quote: 'Displays a random quote.',
-    theme: 'Changes the dashboard theme. Usage: theme <neonGreen|purpleHaze|bloodRed|electricBlue|goldenGlow|cyberPink|midnightBlack|lavaOrange|multiColor>',
-    background: 'Changes the background style. Usage: background <matrix|grid|cityscape|glitch|neonGrid|starryNight|pixelRain|digitalWaves|cosmicFlow>',
+    theme: 'Changes the dashboard theme. Usage: theme <green|purple|red>',
+    background: 'Changes the background style. Usage: background <matrix|grid|city>',
     clearhistory: 'Clears terminal command history.',
     addcommand: 'Adds a custom command. Usage: addcommand <name> <action>',
     hack: 'Initiates a fun hacking simulation.'
@@ -528,7 +311,6 @@ function handleTerminalKeydown(event) {
         }
     } catch (e) {
         console.error('Terminal keydown handler failed:', e);
-        showErrorPopup(e.message);
     }
 }
 
@@ -582,7 +364,6 @@ function runPostLoginCommand() {
                 response = '[OK] Query sent to network';
             } else {
                 response = '[ERROR] Search query required. Usage: search <query>';
-                showErrorPopup(response);
             }
         } else if (command.startsWith('web.')) {
             const query = command.slice(4).trim();
@@ -594,7 +375,6 @@ function runPostLoginCommand() {
                 response = '[OK] Query sent to network';
             } else {
                 response = '[ERROR] Search query required after "web."';
-                showErrorPopup(response);
             }
         } else if (command.startsWith('open ')) {
             const bookmarkName = command.slice(5).trim().toLowerCase();
@@ -607,7 +387,6 @@ function runPostLoginCommand() {
                 response = '[OK] Bookmark opened';
             } else {
                 response = `[ERROR] Bookmark '${bookmarkName}' not found`;
-                showErrorPopup(response);
             }
         } else if (command.startsWith('b.')) {
             const bookmarkName = command.slice(2).trim().toLowerCase();
@@ -634,7 +413,6 @@ function runPostLoginCommand() {
                 lastBookmarkList = null;
             } else {
                 response = '[ERROR] Invalid bookmark number';
-                showErrorPopup(response);
                 lastBookmarkList = null;
             }
         } else if (command.startsWith('addbookmark ')) {
@@ -652,7 +430,6 @@ function runPostLoginCommand() {
                 response = '[OK] Bookmark added';
             } else {
                 response = '[ERROR] URL required. Usage: addbookmark <url> [name]';
-                showErrorPopup(response);
             }
         } else if (command === 'clearbookmarks') {
             response = '[SYSTEM] Clearing bookmarks ...';
@@ -665,8 +442,7 @@ function runPostLoginCommand() {
             response = '[SYSTEM] Fetching weather ...';
             postOutput.textContent += `\n${response}`;
             postOutput.scrollTop = postOutput.scrollHeight;
-            fetchWeather();
-            response = `[OK] Weather updated: ${currentWeather}`;
+            response = `[OK] Weather: ${currentWeather}`;
         } else if (command === 'quote') {
             response = '[SYSTEM] Generating quote ...';
             postOutput.textContent += `\n${response}`;
@@ -675,30 +451,28 @@ function runPostLoginCommand() {
             document.getElementById('quote').textContent = newQuote;
             response = `[OK] Quote: ${newQuote}`;
         } else if (command.startsWith('theme ')) {
-            const theme = command.slice(6).trim().toLowerCase();
-            if (Object.keys(themes).includes(theme)) {
-                response = `[SYSTEM] Changing theme to ${theme} ...`;
+            const color = command.slice(6).trim().toLowerCase();
+            if (['green', 'purple', 'red'].includes(color)) {
+                response = `[SYSTEM] Changing theme to ${color} ...`;
                 postOutput.textContent += `\n${response}`;
                 postOutput.scrollTop = postOutput.scrollHeight;
-                document.getElementById('theme').value = theme;
+                document.getElementById('theme').value = color;
                 document.getElementById('theme').dispatchEvent(new Event('change'));
                 response = '[OK] Theme changed';
             } else {
-                response = '[ERROR] Invalid theme. Options: ' + Object.keys(themes).join(', ');
-                showErrorPopup(response);
+                response = '[ERROR] Invalid theme. Options: green, purple, red';
             }
         } else if (command.startsWith('background ')) {
-            const bg = command.slice(10).trim().toLowerCase();
-            if (Object.keys(backgrounds).includes(bg)) {
-                response = `[SYSTEM] Changing background to ${bg} ...`;
+            const style = command.slice(11).trim().toLowerCase();
+            if (['matrix', 'grid', 'city'].includes(style)) {
+                response = `[SYSTEM] Changing background to ${style} ...`;
                 postOutput.textContent += `\n${response}`;
                 postOutput.scrollTop = postOutput.scrollHeight;
-                document.getElementById('background').value = bg;
+                document.getElementById('background').value = style;
                 document.getElementById('background').dispatchEvent(new Event('change'));
                 response = '[OK] Background changed';
             } else {
-                response = '[ERROR] Invalid background. Options: ' + Object.keys(backgrounds).join(', ');
-                showErrorPopup(response);
+                response = '[ERROR] Invalid background. Options: matrix, grid, city';
             }
         } else if (command === 'clearhistory') {
             response = '[SYSTEM] Clearing history ...';
@@ -721,7 +495,6 @@ function runPostLoginCommand() {
                 response = '[OK] Command added';
             } else {
                 response = '[ERROR] Name and action required. Usage: addcommand <name> <action>';
-                showErrorPopup(response);
             }
         } else if (customCommands[command]) {
             const action = customCommands[command];
@@ -751,7 +524,6 @@ function runPostLoginCommand() {
             response = '[OK] Query sent to network';
         } else {
             response = `[ERROR] Unknown command: ${command}. Use 'search <query>' or 'web.<query>' for web searches.`;
-            showErrorPopup(response);
         }
 
         if (response) {
@@ -766,10 +538,10 @@ function runPostLoginCommand() {
             postOutput.textContent += `\n[ERROR] Command execution failed: ${e.message}`;
             postOutput.scrollTop = postOutput.scrollHeight;
         }
-        showErrorPopup(e.message);
     }
 }
 
+// Add New Tile
 function showAddInput() {
     try {
         const addInput = document.getElementById('add-input');
@@ -777,99 +549,7 @@ function showAddInput() {
         addInput.style.display = 'flex';
     } catch (e) {
         console.error('Show add input failed:', e);
-        showErrorPopup(e.message);
     }
-}
-
-function showErrorPopup(message) {
-    const terminal = document.getElementById('terminal-widget');
-    if (!terminal) return;
-
-    const terminalRect = terminal.getBoundingClientRect();
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const popupWidth = 300;
-    const popupHeight = 100;
-    const padding = 20;
-
-    let x, y;
-    const maxAttempts = 50;
-    let attempts = 0;
-
-    do {
-        x = Math.random() * (screenWidth - popupWidth - 2 * padding) + padding;
-        y = Math.random() * (screenHeight - popupHeight - 2 * padding) + padding;
-        const offsetX = (Math.random() - 0.5) * 50;
-        const offsetY = (Math.random() - 0.5) * 50;
-        x += offsetX;
-        y += offsetY;
-
-        x = Math.max(padding, Math.min(screenWidth - popupWidth - padding, x));
-        y = Math.max(padding, Math.min(screenHeight - popupHeight - padding, y));
-
-        attempts++;
-    } while ((x >= terminalRect.left - padding && x <= terminalRect.right + padding &&
-              y >= terminalRect.top - padding && y <= terminalRect.bottom + padding) && attempts < maxAttempts);
-
-    if (attempts >= maxAttempts) {
-        x = screenWidth / 2 - popupWidth / 2;
-        y = padding;
-    }
-
-    const popup = document.createElement('div');
-    popup.className = 'error-popup';
-    popup.style.position = 'fixed';
-    popup.style.left = `${x}px`;
-    popup.style.top = `${y}px`;
-    popup.innerHTML = `
-        <div class="drag-handle">
-            <span>${message}</span>
-            <button class="close-btn" onclick="this.parentElement.parentElement.remove()">✖</button>
-        </div>
-    `;
-    document.body.appendChild(popup);
-
-    let isDragging = false;
-    let currentX = x;
-    let currentY = y;
-    let initialX;
-    let initialY;
-
-    const dragHandle = popup.querySelector('.drag-handle');
-    dragHandle.addEventListener('mousedown', startDragging);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', stopDragging);
-
-    function startDragging(e) {
-        initialX = e.clientX - currentX;
-        initialY = e.clientY - currentY;
-        isDragging = true;
-    }
-
-    function drag(e) {
-        if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-
-            currentX = Math.max(padding, Math.min(screenWidth - popupWidth - padding, currentX));
-            currentY = Math.max(padding, Math.min(screenHeight - popupHeight - padding, currentY));
-
-            if (currentX >= terminalRect.left - padding && currentX <= terminalRect.right + padding &&
-                currentY >= terminalRect.top - padding && currentY <= terminalRect.bottom + padding) {
-                currentY = terminalRect.top - popupHeight - padding;
-            }
-
-            popup.style.left = `${currentX}px`;
-            popup.style.top = `${currentY}px`;
-        }
-    }
-
-    function stopDragging() {
-        isDragging = false;
-    }
-
-    setTimeout(() => popup.remove(), 10000);
 }
 
 // Event Listeners
@@ -877,14 +557,11 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('DOMContentLoaded: Initializing dashboard...');
         loadTiles();
-        backgroundInterval = initMatrixRain();
         updateBackground();
         updateClock();
         applyToggles();
         initQuote();
         fetchWeather();
-        setInterval(updateClock, 1000);
-        setInterval(fetchWeather, 600000); // Update weather every 10 minutes
 
         const addTileBtn = document.getElementById('add-tile-btn');
         const customizeBtn = document.getElementById('customize-btn');
@@ -911,22 +588,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         themeSelect.addEventListener('change', (e) => {
             try {
-                const selectedTheme = e.target.value;
-                currentColor = themes[selectedTheme] || currentColor;
-                if (selectedTheme === 'multiColor') {
-                    let multiColorInterval = setInterval(() => {
-                        currentColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-                        applyTheme();
-                    }, 2000);
-                    setTimeout(() => clearInterval(multiColorInterval), 10000); // 10 seconds multi-color effect
-                } else {
-                    applyTheme();
+                currentColor = e.target.value === 'purple' ? '#cc00ff' : e.target.value === 'red' ? '#ff0000' : '#00ffcc';
+                const colorHex = currentColor.slice(1);
+                const elements = document.querySelectorAll('.neon-text, .tile, .search-bar input, .customization select, .customization input[type="text"], .customization input[type="checkbox"], .terminal input[type="text"], .terminal .prefix, .terminal input[type="checkbox"], .quote p, #terminal-input-post-login, .customize-btn');
+                elements.forEach(el => {
+                    el.style.color = currentColor;
+                    if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON' || el.classList.contains('tile') || el.classList.contains('customize-btn')) {
+                        el.style.borderColor = currentColor;
+                    }
+                    if (el.classList.contains('neon-text') || el.tagName === 'P') {
+                        el.style.textShadow = `0 0 8px ${currentColor}, 0 0 15px ${currentColor}, 0 0 25px ${currentColor}`;
+                    }
+                    if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON') {
+                        el.style.boxShadow = `0 0 15px ${currentColor}`;
+                    }
+                });
+                document.querySelectorAll('.widget, .tile, #add-input, .terminal-input-wrapper').forEach(el => {
+                    el.style.borderColor = currentColor;
+                    el.style.boxShadow = `0 0 20px ${currentColor}80`;
+                });
+                document.querySelectorAll('pre').forEach(el => {
+                    el.style.color = currentColor;
+                });
+                const addTileImg = document.querySelector('.add-tile img');
+                if (addTileImg) {
+                    addTileImg.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E`;
                 }
                 loadTiles();
                 updateBackground();
             } catch (e) {
                 console.error('Theme change failed:', e);
-                showErrorPopup(e.message);
             }
         });
         searchBarToggle.addEventListener('change', (e) => {
@@ -935,7 +626,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyToggles();
             } catch (e) {
                 console.error('Search bar toggle failed:', e);
-                showErrorPopup(e.message);
             }
         });
         webSearchToggle.addEventListener('change', (e) => {
@@ -944,7 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyToggles();
             } catch (e) {
                 console.error('Web search toggle failed:', e);
-                showErrorPopup(e.message);
             }
         });
         rootUsernameInput.addEventListener('change', (e) => {
@@ -954,7 +643,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateUsernameDisplay();
             } catch (e) {
                 console.error('Username change failed:', e);
-                showErrorPopup(e.message);
             }
         });
         searchInput.addEventListener('keydown', (e) => {
@@ -964,7 +652,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (e) {
                 console.error('Search keydown failed:', e);
-                showErrorPopup(e.message);
             }
         });
         terminalInput.addEventListener('keydown', handleTerminalKeydown);
@@ -988,7 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (e) {
                 console.error('Global keydown failed:', e);
-                showErrorPopup(e.message);
             }
         });
         window.addEventListener('resize', () => {
@@ -1000,45 +686,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateBackground();
             } catch (e) {
                 console.error('Window resize failed:', e);
-                showErrorPopup(e.message);
             }
         });
         console.log('DOMContentLoaded: Initialization complete');
     } catch (e) {
         console.error('DOMContentLoaded handler failed:', e);
-        showErrorPopup(e.message);
     }
 });
-
-function applyTheme() {
-    try {
-        const colorHex = currentColor.slice(1);
-        const elements = document.querySelectorAll('.neon-text, .tile, .search-bar input, .customization select, .customization input[type="text"], .customization input[type="checkbox"], .terminal input[type="text"], .terminal .prefix, .terminal input[type="checkbox"], .quote p, #terminal-input-post-login, .customize-btn');
-        elements.forEach(el => {
-            el.style.color = currentColor;
-            if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON' || el.classList.contains('tile') || el.classList.contains('customize-btn')) {
-                el.style.borderColor = currentColor;
-            }
-            if (el.classList.contains('neon-text') || el.tagName === 'P') {
-                el.style.textShadow = `0 0 8px ${currentColor}, 0 0 15px ${currentColor}, 0 0 25px ${currentColor}`;
-            }
-            if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'BUTTON') {
-                el.style.boxShadow = `0 0 15px ${currentColor}`;
-            }
-        });
-        document.querySelectorAll('.widget, .tile, #add-input, .terminal-input-wrapper').forEach(el => {
-            el.style.borderColor = currentColor;
-            el.style.boxShadow = `0 0 20px ${currentColor}80`;
-        });
-        document.querySelectorAll('pre').forEach(el => {
-            el.style.color = currentColor;
-        });
-        const addTileImg = document.querySelector('.add-tile img');
-        if (addTileImg) {
-            addTileImg.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${colorHex}'%3E%3Cpath d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E`;
-        }
-    } catch (e) {
-        console.error('Apply theme failed:', e);
-        showErrorPopup(e.message);
-    }
-}

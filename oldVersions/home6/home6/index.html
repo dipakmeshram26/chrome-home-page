@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberpunk Home</title>
+    <title>Cyberpunk Dashboard - Chrome Style</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <canvas id="canvas"></canvas>
     <div class="add-input" id="add-input">
@@ -56,29 +54,24 @@
         <div class="tiles" id="tiles">
             <!-- Tiles will be dynamically populated -->
         </div>
-        <div id="weather" class="widget neon-text">Loading...</div>
 
         <div class="widget terminal" id="terminal-widget">
             <img src="v.png" alt="" id="backimg">
             <h2 class="neon-text">Terminal</h2>
-            <pre
-                id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
+            <pre id="terminal-output-post-login">[SYSTEM] Authentication successful<br> $       Welcome to BlackArch 2.0 terminal...</pre>
             <div class="terminal-input-wrapper">
-                <span class="prefix" id="terminal-prefix">BlackArch:~$ </span>
+                <span class="prefix" id="terminal-prefix">BlackArch:2.0:~$ </span>
                 <input type="text" id="terminal-input-post-login">
                 <label><input type="checkbox" id="web-search-toggle" checked>Web</label>
             </div>
         </div>
 
-        <button class="customize-btn glitch" id="customize-btn"><</button>
+        <button class="customize-btn glitch" id="customize-btn">C</button>
 
-
-
-        <div class="quote">
+        <div class="widget quote">
             <p id="quote" class="neon-text">"Code is poetry in motion."</p>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
