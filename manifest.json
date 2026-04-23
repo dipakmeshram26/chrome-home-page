@@ -4,6 +4,15 @@
   "description": "Custom hacker style homepage",
   "manifest_version": 3,
   "permissions": ["tabs"],
+  "host_permissions": [
+    "https://api.duckduckgo.com/*",
+    "https://api.open-meteo.com/*",
+    "https://en.wikipedia.org/*",
+    "https://search.inetol.net/*",
+    "https://searx.be/*",
+    "https://search.sapti.me/*",
+    "https://wttr.in/*"
+  ],
   "background": {
     "service_worker": "background.js"
   }
