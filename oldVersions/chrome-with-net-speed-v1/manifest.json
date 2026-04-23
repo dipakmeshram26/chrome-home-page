@@ -1,0 +1,10 @@
+{
+  "name": "HackerTiles Homepage",
+  "version": "1.0",
+  "description": "Custom hacker style homepage",
+  "manifest_version": 3,
+  "permissions": ["tabs"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

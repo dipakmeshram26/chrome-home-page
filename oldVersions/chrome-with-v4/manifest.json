@@ -1,0 +1,17 @@
+{
+  "name": "HackerTiles Homepage",
+  "version": "1.0",
+  "description": "Custom hacker style homepage",
+  "manifest_version": 3,
+  "permissions": ["tabs"],
+  "host_permissions": [
+    "https://api.duckduckgo.com/*",
+    "https://en.wikipedia.org/*",
+    "https://search.inetol.net/*",
+    "https://searx.be/*",
+    "https://search.sapti.me/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
