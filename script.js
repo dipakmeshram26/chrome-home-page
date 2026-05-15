@@ -722,6 +722,10 @@ function renderArcDigits(container, currentValue, maxValue, options = {}) {
         digit.style.setProperty('--arc-y', `${y}px`);
         digit.style.setProperty('--arc-opacity', `${Math.min(1, 0.25 + (scale * 0.75))}`);
         digit.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+        // Stagger drop animation so center digit appears first and neighbors follow
+        const delay = offset === 0 ? 0 : Math.abs(offset) * 80;
+        digit.style.animationDelay = `${delay}ms`;
+        digit.style.animationDuration = `${options.duration || 1100}ms`;
         container.appendChild(digit);
     }
 }
@@ -1003,9 +1007,9 @@ function updateClock() {
         if (watchMinute) watchMinute.textContent = minute;
         if (watchSecond) watchSecond.textContent = second;
 
-        renderArcDigits(hourArc, Number(hour), 24, { arcCount: 7, radiusX: 80, radiusY: 84, centerX: -78, centerY: 0, startAngle: -125, endAngle: 125 });
-        renderArcDigits(minuteArc, Number(minute), 60, { arcCount: 9, radiusX: 108, radiusY: 84, centerX: 0, centerY: 0, startAngle: -120, endAngle: 120 });
-        renderArcDigits(secondArc, Number(second), 60, { arcCount: 9, radiusX: 80, radiusY: 84, centerX: 78, centerY: 0, startAngle: -125, endAngle: 125 });
+        renderArcDigits(hourArc, Number(hour), 24, { arcCount: 9, radiusX: 64, radiusY: 48, centerX: -72, centerY: 0, startAngle: -130, endAngle: 130, duration: 1200 });
+        renderArcDigits(minuteArc, Number(minute), 60, { arcCount: 13, radiusX: 108, radiusY: 62, centerX: 0, centerY: 0, startAngle: -125, endAngle: 125, duration: 1400 });
+        renderArcDigits(secondArc, Number(second), 60, { arcCount: 13, radiusX: 72, radiusY: 62, centerX: 72, centerY: 0, startAngle: -125, endAngle: 125, duration: 1100 });
 
         if (clockTime) {
             clockTime.textContent = time;
