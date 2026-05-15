@@ -110,7 +110,26 @@
     </div>
 
     <div class="main-content">
-        <span id="clock-time" class="time">System Ready</span>
+        <div class="time digital-watch-shell" id="digital-watch" aria-live="polite" aria-label="Live Digital Clock">
+            <div class="watch-scale" id="watch-scale" aria-hidden="true"></div>
+            <div class="watch-second-badge" aria-hidden="true">
+                <span id="watch-second-badge-value">00</span>
+            </div>
+            <div class="watch-time-display">
+                <span id="watch-hour">00</span>
+                <div class="watch-subtime">
+                    <span class="watch-colon">:</span>
+                    <span class="digit-reel" id="watch-minute-reel" data-value="00">
+                        <span class="digit-static">00</span>
+                    </span>
+                    <span class="watch-colon">:</span>
+                    <span class="digit-reel watch-second-reel" id="watch-second-reel" data-value="00">
+                        <span class="digit-static">00</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <span id="clock-time" class="clock-fallback" aria-hidden="true">System Ready</span>
         <div class="greeting">
             <h1 class="neon-text" id="greeting-text">BlackArch:2.0</h1>
             <div class="clock neon-text" id="clock">

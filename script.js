@@ -647,6 +647,7 @@ function initializeDashboard() {
         loadTiles();
         backgroundInterval = initMatrixRain();
         updateBackground();
+        buildWatchScale();
         updateClock();
         applyToggles();
         initQuote();
@@ -665,6 +666,84 @@ function initializeDashboard() {
         showErrorPopup(e.message);
     }
 }
+
+    function buildWatchScale() {
+        const scale = document.getElementById('watch-scale');
+        if (!scale || scale.childElementCount > 0) return;
+
+        const tickCount = 30;
+        const startAngle = -120;
+        const endAngle = 120;
+        const step = (endAngle - startAngle) / (tickCount - 1);
+
+        for (let i = 0; i < tickCount; i++) {
+            const tick = document.createElement('span');
+            tick.className = 'watch-tick';
+            if (i % 5 === 0) {
+                tick.classList.add('major');
+            }
+            tick.style.setProperty('--tick-angle', `${startAngle + (step * i)}deg`);
+            scale.appendChild(tick);
+        }
+    }
+
+    function animateReelValue(reelElement, nextValue) {
+        if (!reelElement) return;
+
+        const currentValue = reelElement.getAttribute('data-value') || '';
+        if (currentValue === nextValue) return;
+
+        const currentDigit = reelElement.querySelector('.digit-static, .digit-current');
+        if (!currentDigit) {
+            reelElement.innerHTML = `<span class="digit-static">${nextValue}</span>`;
+            reelElement.setAttribute('data-value', nextValue);
+            return;
+        }
+
+        currentDigit.classList.remove('digit-static');
+        currentDigit.classList.add('digit-current', 'digit-out');
+
+        const incomingDigit = document.createElement('span');
+        incomingDigit.className = 'digit-current digit-in';
+        incomingDigit.textContent = nextValue;
+        reelElement.appendChild(incomingDigit);
+        reelElement.setAttribute('data-value', nextValue);
+
+        const cleanup = () => {
+            if (currentDigit.parentNode === reelElement) {
+                reelElement.removeChild(currentDigit);
+            }
+            incomingDigit.classList.remove('digit-in', 'digit-current');
+            incomingDigit.classList.add('digit-static');
+            incomingDigit.removeEventListener('animationend', cleanup);
+        };
+
+        incomingDigit.addEventListener('animationend', cleanup);
+    }
+
+    function getIstTimeParts(now = new Date()) {
+        const formatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Kolkata',
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        const parts = formatter.formatToParts(now);
+        const map = {};
+        parts.forEach((part) => {
+            if (part.type !== 'literal') {
+                map[part.type] = part.value;
+            }
+        });
+
+        return {
+            hour: map.hour || '00',
+            minute: map.minute || '00',
+            second: map.second || '00'
+        };
+    }
 
 // Setup all event listeners  
 // Matrix Rain Background
@@ -924,15 +1003,32 @@ function updateBackground() {
 function updateClock() {
     try {
         const now = new Date();
-        const time = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour12: true });
+        const { hour, minute, second } = getIstTimeParts(now);
+        const time = `${hour}:${minute}:${second}`;
         const date = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', year: 'numeric' });
+
         const clockTime = document.getElementById('clock-time');
         const clockDate = document.getElementById('clock-date');
-        if (clockTime && clockDate) {
+
+        const watchHour = document.getElementById('watch-hour');
+        const minuteReel = document.getElementById('watch-minute-reel');
+        const secondReel = document.getElementById('watch-second-reel');
+        const secondBadge = document.getElementById('watch-second-badge-value');
+
+        if (watchHour) {
+            watchHour.textContent = hour;
+        }
+        animateReelValue(minuteReel, minute);
+        animateReelValue(secondReel, second);
+        if (secondBadge) {
+            secondBadge.textContent = second;
+        }
+
+        if (clockTime) {
             clockTime.textContent = time;
+        }
+        if (clockDate) {
             clockDate.textContent = date;
-        } else {
-            throw new Error('Clock elements not found');
         }
     } catch (e) {
         console.error('Clock update failed:', e);

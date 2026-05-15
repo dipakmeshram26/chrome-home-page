@@ -36,7 +36,6 @@ body {
 }
 
 @keyframes glitchBg {
-
     0%,
     100% {
         filter: none;
@@ -81,53 +80,6 @@ body {
     to {
         opacity: 1;
     }
-}
-
-.auth-container {
-    background: rgba(10, 10, 10, 0.95);
-    border: 3px solid #ff0000;
-    border-radius: 15px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 0 40px #ff0000, inset 0 0 20px rgba(255, 0, 0, 0.2);
-    animation: authGlitch 0.5s ease-out;
-}
-
-@keyframes authGlitch {
-    0% {
-        transform: translate(0, -20px);
-        opacity: 0;
-    }
-    50% {
-        transform: translate(-2px, 0);
-    }
-    100% {
-        transform: translate(0, 0);
-        opacity: 1;
-    }
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.auth-title {
-    font-size: 2em;
-    color: #ff0000;
-    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    margin-bottom: 10px;
-    letter-spacing: 3px;
-}
-
-.auth-subtitle {
-    font-size: 1.1em;
-    color: #ff6666;
-    text-shadow: 0 0 10px #ff0000;
-    font-family: 'Orbitron', sans-serif;
 }
 
 .auth-message {
@@ -351,14 +303,139 @@ body.auth-locked .main-content {
 
 .time {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    font-size: 1.4em;
-    box-shadow: 0 0 14px #08876fe0;
-    padding: 6px 10px;
-    background: transparent;
-    backdrop-filter: blur(5px);
-    border-radius: 5px;
+    top: 342px;
+    left: 14px;
+}
+
+.digital-watch-shell {
+    width: 205px;
+    height: 124px;
+    border-radius: 20px;
+    background: radial-gradient(circle at 72% 30%, rgba(255, 255, 255, 0.1), rgba(10, 12, 14, 0.86) 58%);
+    border: 1px solid rgba(215, 236, 255, 0.24);
+    backdrop-filter: blur(7px);
+    box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.05), 0 0 18px rgba(119, 177, 220, 0.22);
+    overflow: hidden;
+    color: #dce8f8;
+}
+
+.watch-scale {
+    position: absolute;
+    left: -34px;
+    top: 50%;
+    width: 130px;
+    height: 130px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.watch-tick {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2px;
+    height: 11px;
+    border-radius: 99px;
+    transform: translate(-50%, -50%) rotate(var(--tick-angle)) translateY(-57px);
+    transform-origin: center;
+    background: rgba(239, 245, 255, 0.56);
+}
+
+.watch-tick.major {
+    height: 15px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.watch-second-badge {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    border: 2px solid rgba(240, 246, 255, 0.8);
+    color: #f3f8ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78em;
+    display: grid;
+    place-items: center;
+    background: rgba(39, 47, 56, 0.8);
+    box-shadow: 0 0 10px rgba(188, 220, 255, 0.35);
+}
+
+.watch-time-display {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.44em;
+    letter-spacing: 0.03em;
+    color: #e8f0fb;
+}
+
+.watch-colon {
+    opacity: 0.92;
+    margin-top: -1px;
+}
+
+.digit-reel {
+    position: relative;
+    width: 2.12ch;
+    height: 1.15em;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.digit-static,
+.digit-current {
+    position: absolute;
+    left: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    text-align: left;
+}
+
+.digit-static {
+    transform: translateY(0);
+}
+
+.digit-in {
+    animation: reelSlideIn 320ms cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+}
+
+.digit-out {
+    animation: reelSlideOut 320ms cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+}
+
+@keyframes reelSlideIn {
+    from {
+        transform: translateY(-118%);
+        opacity: 0.55;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+@keyframes reelSlideOut {
+    from {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(118%);
+        opacity: 0.3;
+    }
+}
+
+.clock-fallback {
+    display: none;
 }
 
 .search-bar {
@@ -1319,9 +1396,49 @@ body.auth-locked .main-content {
 
     .time {
         position: absolute;
-        top: 5px;
+        top: 8px;
         left: 5px;
-        font-size: 1.2em;
+    }
+
+    .digital-watch-shell {
+        width: 164px;
+        height: 102px;
+    }
+
+    .watch-scale {
+        left: -30px;
+        width: 114px;
+        height: 114px;
+    }
+
+    .watch-tick {
+        transform: translate(-50%, -50%) rotate(var(--tick-angle)) translateY(-49px);
+        height: 9px;
+    }
+
+    .watch-tick.major {
+        height: 12px;
+    }
+
+    .watch-second-badge {
+        width: 29px;
+        height: 29px;
+        left: 15px;
+        font-size: 0.65em;
+    }
+
+    .watch-time-display {
+        right: 12px;
+        gap: 5px;
+    }
+
+    #watch-hour {
+        font-size: 1.85em;
+    }
+
+    .watch-subtime {
+        font-size: 0.58em;
+        gap: 3px;
     }
 
     .clock span {
