@@ -647,7 +647,7 @@ function initializeDashboard() {
         loadTiles();
         backgroundInterval = initMatrixRain();
         updateBackground();
-        buildWatchScale();
+        buildSlotMachineClock();
         updateClock();
         applyToggles();
         initQuote();
@@ -667,61 +667,69 @@ function initializeDashboard() {
     }
 }
 
-    function buildWatchScale() {
-        const scale = document.getElementById('watch-scale');
-        if (!scale || scale.childElementCount > 0) return;
+    function buildSlotMachineClock() {
+    const columns = ['slot-h1', 'slot-h2', 'slot-m1', 'slot-m2', 'slot-s1', 'slot-s2'];
+    const displayData = {
+        'slot-h1': { start: 0, end: 2, step: 1 },   // Hour tens (00-23)
+        'slot-h2': { start: 0, end: 9, step: 1 },   // Hour ones
+        'slot-m1': { start: 0, end: 5, step: 1 },   // Minute tens (00-59)
+        'slot-m2': { start: 0, end: 9, step: 1 },   // Minute ones
+        'slot-s1': { start: 0, end: 5, step: 1 },   // Second tens (00-59)
+        'slot-s2': { start: 0, end: 9, step: 1 }    // Second ones
+    };
 
-        const tickCount = 30;
-        const startAngle = -120;
-        const endAngle = 120;
-        const step = (endAngle - startAngle) / (tickCount - 1);
+    columns.forEach((colId) => {
+        const col = document.getElementById(colId);
+        if (!col || col.children.length > 0) return;
 
-        for (let i = 0; i < tickCount; i++) {
-            const tick = document.createElement('span');
-            tick.className = 'watch-tick';
-            if (i % 5 === 0) {
-                tick.classList.add('major');
-            }
-            tick.style.setProperty('--tick-angle', `${startAngle + (step * i)}deg`);
-            scale.appendChild(tick);
+        const range = displayData[colId];
+        for (let i = range.start; i <= range.end; i += range.step) {
+            const num = document.createElement('div');
+            num.className = 'slot-number';
+            num.textContent = String(i).padStart(2, '0');
+            num.setAttribute('data-value', String(i).padStart(2, '0'));
+            col.appendChild(num);
         }
-    }
+    });
+}
 
-    function animateReelValue(reelElement, nextValue) {
-        if (!reelElement) return;
+function updateSlotMachineDisplay(h, m, s) {
+    const h1 = String(h).padStart(2, '0')[0];
+    const h2 = String(h).padStart(2, '0')[1];
+    const m1 = String(m).padStart(2, '0')[0];
+    const m2 = String(m).padStart(2, '0')[1];
+    const s1 = String(s).padStart(2, '0')[0];
+    const s2 = String(s).padStart(2, '0')[1];
 
-        const currentValue = reelElement.getAttribute('data-value') || '';
-        if (currentValue === nextValue) return;
+    const updates = {
+        'slot-h1': parseInt(h1),
+        'slot-h2': parseInt(h2),
+        'slot-m1': parseInt(m1),
+        'slot-m2': parseInt(m2),
+        'slot-s1': parseInt(s1),
+        'slot-s2': parseInt(s2)
+    };
 
-        const currentDigit = reelElement.querySelector('.digit-static, .digit-current');
-        if (!currentDigit) {
-            reelElement.innerHTML = `<span class="digit-static">${nextValue}</span>`;
-            reelElement.setAttribute('data-value', nextValue);
-            return;
-        }
+    Object.entries(updates).forEach(([colId, value]) => {
+        const col = document.getElementById(colId);
+        if (!col) return;
 
-        currentDigit.classList.remove('digit-static');
-        currentDigit.classList.add('digit-current', 'digit-out');
-
-        const incomingDigit = document.createElement('span');
-        incomingDigit.className = 'digit-current digit-in';
-        incomingDigit.textContent = nextValue;
-        reelElement.appendChild(incomingDigit);
-        reelElement.setAttribute('data-value', nextValue);
-
-        const cleanup = () => {
-            if (currentDigit.parentNode === reelElement) {
-                reelElement.removeChild(currentDigit);
+        const numbers = col.querySelectorAll('.slot-number');
+        numbers.forEach((num) => {
+            num.classList.remove('current', 'next');
+            if (parseInt(num.getAttribute('data-value')) === value) {
+                num.classList.add('current');
+            } else if (parseInt(num.getAttribute('data-value')) === value + 1) {
+                num.classList.add('next');
             }
-            incomingDigit.classList.remove('digit-in', 'digit-current');
-            incomingDigit.classList.add('digit-static');
-            incomingDigit.removeEventListener('animationend', cleanup);
-        };
+        });
+    });
+}
 
-        incomingDigit.addEventListener('animationend', cleanup);
-    }
-
-    function getIstTimeParts(now = new Date()) {
+// Clock
+function updateClock() {
+    try {
+        const now = new Date();
         const formatter = new Intl.DateTimeFormat('en-GB', {
             timeZone: 'Asia/Kolkata',
             hour12: false,
@@ -729,7 +737,6 @@ function initializeDashboard() {
             minute: '2-digit',
             second: '2-digit'
         });
-
         const parts = formatter.formatToParts(now);
         const map = {};
         parts.forEach((part) => {
@@ -737,15 +744,29 @@ function initializeDashboard() {
                 map[part.type] = part.value;
             }
         });
+        const hour = parseInt(map.hour || '00');
+        const minute = parseInt(map.minute || '00');
+        const second = parseInt(map.second || '00');
+        const time = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
+        const date = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', year: 'numeric' });
 
-        return {
-            hour: map.hour || '00',
-            minute: map.minute || '00',
-            second: map.second || '00'
-        };
+        const clockTime = document.getElementById('clock-time');
+        const clockDate = document.getElementById('clock-date');
+
+        if (clockTime) {
+            clockTime.textContent = time;
+        }
+        if (clockDate) {
+            clockDate.textContent = date;
+        }
+
+        updateSlotMachineDisplay(hour, minute, second);
+    } catch (e) {
+        console.error('Clock update failed:', e);
+        showErrorPopup(e.message);
     }
+}
 
-// Setup all event listeners  
 // Matrix Rain Background
 function initMatrixRain() {
     try {
@@ -988,8 +1009,6 @@ function updateBackground() {
             drawStarryNight();
         } else if (background === 'pixelRain') {
             drawPixelRain();
-        } else if (background === 'digitalWaves') {
-            drawDigitalWaves();
         } else if (background === 'cosmicFlow') {
             drawCosmicFlow();
         }
@@ -999,42 +1018,6 @@ function updateBackground() {
     }
 }
 
-// Clock
-function updateClock() {
-    try {
-        const now = new Date();
-        const { hour, minute, second } = getIstTimeParts(now);
-        const time = `${hour}:${minute}:${second}`;
-        const date = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', year: 'numeric' });
-
-        const clockTime = document.getElementById('clock-time');
-        const clockDate = document.getElementById('clock-date');
-
-        const watchHour = document.getElementById('watch-hour');
-        const minuteReel = document.getElementById('watch-minute-reel');
-        const secondReel = document.getElementById('watch-second-reel');
-        const secondBadge = document.getElementById('watch-second-badge-value');
-
-        if (watchHour) {
-            watchHour.textContent = hour;
-        }
-        animateReelValue(minuteReel, minute);
-        animateReelValue(secondReel, second);
-        if (secondBadge) {
-            secondBadge.textContent = second;
-        }
-
-        if (clockTime) {
-            clockTime.textContent = time;
-        }
-        if (clockDate) {
-            clockDate.textContent = date;
-        }
-    } catch (e) {
-        console.error('Clock update failed:', e);
-        showErrorPopup(e.message);
-    }
-}
 
 // In-page Search Window
 let searchWindowUrl = '';
