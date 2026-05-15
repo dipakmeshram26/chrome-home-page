@@ -330,7 +330,7 @@ body.auth-locked .main-content {
 .slot-column {
     position: relative;
     width: 50px;
-    height: 170px;
+    height: 220px;
     background: rgba(0, 20, 40, 0.9);
     border: 1px solid rgba(0, 255, 204, 0.3);
     border-radius: 8px;
@@ -359,6 +359,7 @@ body.auth-locked .main-content {
 .slot-number.current {
     opacity: 1;
     font-weight: bold;
+    font-size: 1.5em;
     text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
     z-index: 10;
     filter: brightness(1.2);
