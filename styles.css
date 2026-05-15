@@ -309,60 +309,73 @@ body.auth-locked .main-content {
 
 .slot-machine-clock {
     width: 280px;
-    height: 140px;
+    height: 250px;
     background: rgba(0, 0, 0, 0.7);
-    border: 2px solid #00ffcc;
+    /* border: 2px solid #00ffcc; */
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     font-family: 'Orbitron', monospace;
-    font-size: 3.5em;
+    font-size: 1em;
     font-weight: bold;
     color: #00ffcc;
-    text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc;
-    box-shadow: 0 0 20px #00ffcc inset, 0 0 30px #00ffcc;
+    /* text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc; */
+    /* box-shadow: 0 0 20px #00ffcc inset, 0 0 30px #00ffcc; */
     overflow: hidden;
+    --slot-step: 38px;
 }
 
 .slot-column {
     position: relative;
     width: 50px;
-    height: 85px;
+    height: 170px;
     background: rgba(0, 20, 40, 0.9);
     border: 1px solid rgba(0, 255, 204, 0.3);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1em;
-    line-height: 1.2;
     overflow: hidden;
+    display: block;
 }
 
 .slot-number {
     position: absolute;
+    top: 50%;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 1.05em;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.4;
+    transform: translateY(calc(-50% + (var(--slot-offset, 0) * var(--slot-step))));
+    opacity: 0;
     color: #00ffcc;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s ease, filter 0.25s ease;
+    font-size: 0.82em;
+    line-height: 1;
+    will-change: transform, opacity;
 }
 
 .slot-number.current {
     opacity: 1;
     font-weight: bold;
-    text-shadow: 0 0 10px #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
     z-index: 10;
+    filter: brightness(1.2);
 }
 
 .slot-number.next {
-    opacity: 0.6;
-    color: #0099aa;
+    opacity: 0.65;
+    color: #52f7e2;
+}
+
+.slot-number.prev {
+    opacity: 0.65;
+    color: #52f7e2;
+}
+
+.slot-number.visible {
+    opacity: 0.45;
 }
 
 .slot-separator {
@@ -1339,15 +1352,15 @@ body.auth-locked .main-content {
 
     .slot-machine-clock {
         width: 240px;
-        height: 110px;
-        font-size: 3em;
+        height: 122px;
+        font-size: 2.8em;
         gap: 6px;
+        --slot-step: 18px;
     }
 
     .slot-column {
         width: 42px;
-        height: 75px;
-        font-size: 0.9em;
+        height: 84px;
     }
 
     .clock span {

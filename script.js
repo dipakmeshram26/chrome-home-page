@@ -668,59 +668,82 @@ function initializeDashboard() {
 }
 
     function buildSlotMachineClock() {
-    const columns = ['slot-h1', 'slot-h2', 'slot-m1', 'slot-m2', 'slot-s1', 'slot-s2'];
-    const displayData = {
-        'slot-h1': { start: 0, end: 2, step: 1 },   // Hour tens (00-23)
-        'slot-h2': { start: 0, end: 9, step: 1 },   // Hour ones
-        'slot-m1': { start: 0, end: 5, step: 1 },   // Minute tens (00-59)
-        'slot-m2': { start: 0, end: 9, step: 1 },   // Minute ones
-        'slot-s1': { start: 0, end: 5, step: 1 },   // Second tens (00-59)
-        'slot-s2': { start: 0, end: 9, step: 1 }    // Second ones
-    };
+        const columns = {
+            'slot-h1': { min: 0, max: 2 },
+            'slot-h2': { min: 0, max: 9 },
+            'slot-m1': { min: 0, max: 5 },
+            'slot-m2': { min: 0, max: 9 },
+            'slot-s1': { min: 0, max: 5 },
+            'slot-s2': { min: 0, max: 9 }
+        };
 
-    columns.forEach((colId) => {
+        Object.entries(columns).forEach(([colId, range]) => {
         const col = document.getElementById(colId);
         if (!col || col.children.length > 0) return;
 
-        const range = displayData[colId];
-        for (let i = range.start; i <= range.end; i += range.step) {
+            col.dataset.min = String(range.min);
+            col.dataset.max = String(range.max);
+
+            for (let i = range.min; i <= range.max; i += 1) {
             const num = document.createElement('div');
             num.className = 'slot-number';
-            num.textContent = String(i).padStart(2, '0');
-            num.setAttribute('data-value', String(i).padStart(2, '0'));
+                num.textContent = String(i);
+                num.dataset.value = String(i);
             col.appendChild(num);
         }
     });
 }
 
 function updateSlotMachineDisplay(h, m, s) {
-    const h1 = String(h).padStart(2, '0')[0];
-    const h2 = String(h).padStart(2, '0')[1];
-    const m1 = String(m).padStart(2, '0')[0];
-    const m2 = String(m).padStart(2, '0')[1];
-    const s1 = String(s).padStart(2, '0')[0];
-    const s2 = String(s).padStart(2, '0')[1];
-
     const updates = {
-        'slot-h1': parseInt(h1),
-        'slot-h2': parseInt(h2),
-        'slot-m1': parseInt(m1),
-        'slot-m2': parseInt(m2),
-        'slot-s1': parseInt(s1),
-        'slot-s2': parseInt(s2)
+            'slot-h1': parseInt(String(h).padStart(2, '0')[0], 10),
+            'slot-h2': parseInt(String(h).padStart(2, '0')[1], 10),
+            'slot-m1': parseInt(String(m).padStart(2, '0')[0], 10),
+            'slot-m2': parseInt(String(m).padStart(2, '0')[1], 10),
+            'slot-s1': parseInt(String(s).padStart(2, '0')[0], 10),
+            'slot-s2': parseInt(String(s).padStart(2, '0')[1], 10)
     };
 
     Object.entries(updates).forEach(([colId, value]) => {
         const col = document.getElementById(colId);
         if (!col) return;
 
+            const min = parseInt(col.dataset.min || '0', 10);
+            const max = parseInt(col.dataset.max || '0', 10);
+            const range = (max - min) + 1;
+            const visibleWindow = 2;
         const numbers = col.querySelectorAll('.slot-number');
         numbers.forEach((num) => {
-            num.classList.remove('current', 'next');
-            if (parseInt(num.getAttribute('data-value')) === value) {
+                const digit = parseInt(num.dataset.value || '0', 10);
+                let offset = digit - value;
+                if (range > 0) {
+                    const half = Math.floor(range / 2);
+                    if (offset > half) {
+                        offset -= range;
+                    } else if (offset < -half) {
+                        offset += range;
+                    }
+                }
+
+                const visible = Math.abs(offset) <= visibleWindow;
+                num.style.setProperty('--slot-offset', offset);
+                num.classList.toggle('current', offset === 0);
+                num.classList.toggle('next', offset === 1);
+                num.classList.toggle('prev', offset === -1);
+                num.classList.toggle('visible', visible && offset !== 0);
+
+                if (visible) {
+                    num.style.opacity = offset === 0 ? '1' : String(Math.max(0.42, 1 - (Math.abs(offset) * 0.18)));
+                } else {
+                    num.style.opacity = '0';
+                }
+
+                if (offset === 0) {
                 num.classList.add('current');
-            } else if (parseInt(num.getAttribute('data-value')) === value + 1) {
-                num.classList.add('next');
+                } else if (offset === 1) {
+                    num.classList.add('next');
+                } else if (offset === -1) {
+                    num.classList.add('prev');
             }
         });
     });
