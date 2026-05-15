@@ -336,6 +336,9 @@ body.auth-locked .main-content {
     border-radius: 8px;
     overflow: hidden;
     display: block;
+    perspective: 600px;
+    -webkit-perspective: 600px;
+    transform-style: preserve-3d;
 }
 
 .slot-number {
@@ -347,7 +350,10 @@ body.auth-locked .main-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateY(calc(-50% + (var(--slot-offset, 0) * var(--slot-step))));
+    transform-origin: center center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateY(-50%) rotateX(calc(var(--slot-offset, 0) * -18deg)) translateZ(42px);
     opacity: 0;
     color: #00ffcc;
     transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s ease, filter 0.25s ease;
