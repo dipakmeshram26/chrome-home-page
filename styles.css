@@ -308,147 +308,96 @@ body.auth-locked .main-content {
 }
 
 .digital-watch-shell {
-    width: 205px;
-    height: 124px;
-    border-radius: 20px;
-    background: radial-gradient(circle at 72% 30%, rgba(255, 255, 255, 0.1), rgba(10, 12, 14, 0.86) 58%);
-    border: 1px solid rgba(215, 236, 255, 0.24);
+    width: 295px;
+    height: 210px;
+    border-radius: 24px;
+    background: radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.08), rgba(10, 12, 14, 0.92) 56%);
+    border: 1px solid rgba(215, 236, 255, 0.22);
     backdrop-filter: blur(7px);
     box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.05), 0 0 18px rgba(119, 177, 220, 0.22);
     overflow: hidden;
-    color: #dce8f8;
-}
-
-.watch-scale {
-    position: absolute;
-    left: -34px;
-    top: 50%;
-    width: 130px;
-    height: 130px;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
-.watch-tick {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 2px;
-    height: 11px;
-    border-radius: 99px;
-    transform: translate(-50%, -50%) rotate(var(--tick-angle)) translateY(-57px);
-    transform-origin: center;
-    background: rgba(239, 245, 255, 0.56);
-}
-
-.watch-tick.major {
-    height: 15px;
-    background: rgba(255, 255, 255, 0.85);
-}
-
-.watch-second-badge {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 33px;
-    height: 33px;
-    border-radius: 50%;
-    border: 2px solid rgba(240, 246, 255, 0.8);
-    color: #f3f8ff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.78em;
-    display: grid;
-    place-items: center;
-    background: rgba(39, 47, 56, 0.8);
-    box-shadow: 0 0 10px rgba(188, 220, 255, 0.35);
-}
-
-.watch-time-display {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 0.03em;
     color: #e8f0fb;
 }
 
-#watch-hour {
-    font-size: 2.2em;
-    line-height: 0.95;
-    text-shadow: 0 0 10px rgba(232, 240, 251, 0.35);
+.watch-arc {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
 }
 
-.watch-subtime {
+.watch-arc-digit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    min-width: 1.25ch;
+    transform-origin: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.96em;
+    font-weight: 700;
+    color: rgba(232, 240, 251, 0.9);
+    text-shadow: 0 0 8px rgba(232, 240, 251, 0.18);
+    opacity: 0.22;
+    animation: arcDigitDrop 420ms cubic-bezier(0.16, 0.84, 0.22, 1) both;
+}
+
+.watch-arc-digit.active {
+    opacity: 1;
+    font-size: 1.8em;
+    color: #f7fbff;
+    text-shadow: 0 0 12px rgba(247, 251, 255, 0.38);
+}
+
+@keyframes arcDigitDrop {
+    from {
+        transform: translate3d(var(--arc-x), calc(var(--arc-y) - 12px), 0) scale(0.88);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(var(--arc-x), var(--arc-y), 0) scale(1);
+        opacity: var(--arc-opacity);
+    }
+}
+
+.watch-arc-left .watch-arc-digit {
+    color: rgba(232, 240, 251, 0.82);
+}
+
+.watch-arc-center .watch-arc-digit {
+    color: rgba(232, 240, 251, 0.86);
+}
+
+.watch-arc-right .watch-arc-digit {
+    color: rgba(232, 240, 251, 0.82);
+}
+
+.watch-main-time {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-    font-size: 0.62em;
-    opacity: 0.96;
+    align-items: baseline;
+    gap: 2px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.02em;
+    color: #f7fbff;
+    text-shadow: 0 0 14px rgba(232, 240, 251, 0.32);
+}
+
+#watch-hour,
+#watch-minute,
+#watch-second {
+    font-size: 2.95em;
+    line-height: 1;
+    min-width: 2ch;
+    text-align: center;
 }
 
 .watch-colon {
-    opacity: 0.92;
-    margin-top: -1px;
-    font-size: 1em;
-}
-
-.digit-reel {
-    position: relative;
-    width: 2.04ch;
-    height: 1em;
-    overflow: hidden;
-    display: inline-block;
-    font-size: 1em;
-}
-
-.digit-static,
-.digit-current {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    text-align: left;
-    font-size: 1em;
-}
-
-.digit-static {
-    transform: translateY(0);
-}
-
-.digit-in {
-    animation: reelSlideIn 320ms cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
-}
-
-.digit-out {
-    animation: reelSlideOut 320ms cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
-}
-
-@keyframes reelSlideIn {
-    from {
-        transform: translateY(-118%);
-        opacity: 0.55;
-    }
-    to {
-        transform: translateY(0%);
-        opacity: 1;
-    }
-}
-@keyframes reelSlideOut {
-    from {
-        transform: translateY(0%);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(118%);
-        opacity: 0.3;
-    }
+    opacity: 0.94;
+    font-size: 2.5em;
+    line-height: 0.8;
+    margin: 0 1px;
 }
 
 .clock-fallback {
@@ -1418,49 +1367,30 @@ body.auth-locked .main-content {
     }
 
     .digital-watch-shell {
-        width: 164px;
-        height: 102px;
+        width: 238px;
+        height: 176px;
     }
 
-    .watch-scale {
-        left: -30px;
-        width: 114px;
-        height: 114px;
+    .watch-arc-digit {
+        font-size: 0.74em;
     }
 
-    .watch-tick {
-        transform: translate(-50%, -50%) rotate(var(--tick-angle)) translateY(-49px);
-        height: 9px;
+    .watch-arc-digit.active {
+        font-size: 1.45em;
     }
 
-    .watch-tick.major {
-        height: 12px;
+    #watch-hour,
+    #watch-minute,
+    #watch-second {
+        font-size: 2.2em;
     }
 
-    .watch-second-badge {
-        width: 29px;
-        height: 29px;
-        left: 15px;
-        font-size: 0.65em;
+    .watch-main-time {
+        gap: 1px;
     }
 
-    .watch-time-display {
-        right: 12px;
-        gap: 5px;
-    }
-
-    #watch-hour {
-        font-size: 1.85em;
-    }
-
-    .watch-subtime {
-        font-size: 0.52em;
-        gap: 3px;
-    }
-
-    .digit-reel {
-        width: 1.95ch;
-        height: 0.94em;
+    .watch-colon {
+        font-size: 2em;
     }
 
     .clock span {

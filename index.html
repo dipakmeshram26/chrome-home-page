@@ -111,22 +111,15 @@
 
     <div class="main-content">
         <div class="time digital-watch-shell" id="digital-watch" aria-live="polite" aria-label="Live Digital Clock">
-            <div class="watch-scale" id="watch-scale" aria-hidden="true"></div>
-            <div class="watch-second-badge" aria-hidden="true">
-                <span id="watch-second-badge-value">00</span>
-            </div>
-            <div class="watch-time-display">
+            <div class="watch-arc watch-arc-left" id="watch-hour-arc" aria-hidden="true"></div>
+            <div class="watch-arc watch-arc-center" id="watch-minute-arc" aria-hidden="true"></div>
+            <div class="watch-arc watch-arc-right" id="watch-second-arc" aria-hidden="true"></div>
+            <div class="watch-main-time">
                 <span id="watch-hour">00</span>
-                <div class="watch-subtime">
-                    <span class="watch-colon">:</span>
-                    <span class="digit-reel" id="watch-minute-reel" data-value="00">
-                        <span class="digit-static">00</span>
-                    </span>
-                    <span class="watch-colon">:</span>
-                    <span class="digit-reel watch-second-reel" id="watch-second-reel" data-value="00">
-                        <span class="digit-static">00</span>
-                    </span>
-                </div>
+                <span class="watch-colon">:</span>
+                <span id="watch-minute">00</span>
+                <span class="watch-colon">:</span>
+                <span id="watch-second">00</span>
             </div>
         </div>
         <span id="clock-time" class="clock-fallback" aria-hidden="true">System Ready</span>
