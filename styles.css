@@ -370,35 +370,52 @@ body.auth-locked .main-content {
     top: 50%;
     transform: translateY(-50%);
     display: flex;
-    align-items: center;
-    gap: 4px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.44em;
     letter-spacing: 0.03em;
     color: #e8f0fb;
+}
+
+#watch-hour {
+    font-size: 2.2em;
+    line-height: 0.95;
+    text-shadow: 0 0 10px rgba(232, 240, 251, 0.35);
+}
+
+.watch-subtime {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    font-size: 0.62em;
+    opacity: 0.96;
 }
 
 .watch-colon {
     opacity: 0.92;
     margin-top: -1px;
+    font-size: 1em;
 }
 
 .digit-reel {
     position: relative;
-    width: 2.12ch;
-    height: 1.15em;
+    width: 2.04ch;
+    height: 1em;
     overflow: hidden;
     display: inline-block;
+    font-size: 1em;
 }
 
 .digit-static,
 .digit-current {
     position: absolute;
     left: 0;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
+    top: 0;
+    width: 100%;
     text-align: left;
+    font-size: 1em;
 }
 
 .digit-static {
@@ -1437,8 +1454,13 @@ body.auth-locked .main-content {
     }
 
     .watch-subtime {
-        font-size: 0.58em;
+        font-size: 0.52em;
         gap: 3px;
+    }
+
+    .digit-reel {
+        width: 1.95ch;
+        height: 0.94em;
     }
 
     .clock span {
