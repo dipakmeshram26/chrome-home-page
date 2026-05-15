@@ -110,17 +110,15 @@
     </div>
 
     <div class="main-content">
-        <div class="time digital-watch-shell" id="digital-watch" aria-live="polite" aria-label="Live Digital Clock">
-            <div class="watch-arc watch-arc-left" id="watch-hour-arc" aria-hidden="true"></div>
-            <div class="watch-arc watch-arc-center" id="watch-minute-arc" aria-hidden="true"></div>
-            <div class="watch-arc watch-arc-right" id="watch-second-arc" aria-hidden="true"></div>
-            <div class="watch-main-time">
-                <span id="watch-hour">00</span>
-                <span class="watch-colon">:</span>
-                <span id="watch-minute">00</span>
-                <span class="watch-colon">:</span>
-                <span id="watch-second">00</span>
-            </div>
+        <div class="time slot-machine-clock" id="slot-machine-clock" aria-live="polite" aria-label="Live Digital Clock">
+            <div class="slot-column" id="slot-h1"></div>
+            <div class="slot-column" id="slot-h2"></div>
+            <div class="slot-separator">:</div>
+            <div class="slot-column" id="slot-m1"></div>
+            <div class="slot-column" id="slot-m2"></div>
+            <div class="slot-separator">:</div>
+            <div class="slot-column" id="slot-s1"></div>
+            <div class="slot-column" id="slot-s2"></div>
         </div>
         <span id="clock-time" class="clock-fallback" aria-hidden="true">System Ready</span>
         <div class="greeting">

@@ -647,6 +647,7 @@ function initializeDashboard() {
         loadTiles();
         backgroundInterval = initMatrixRain();
         updateBackground();
+        buildWatchScale();
         updateClock();
         applyToggles();
         initQuote();
@@ -665,6 +666,60 @@ function initializeDashboard() {
         showErrorPopup(e.message);
     }
 }
+
+    function buildWatchScale() {
+        const scale = document.getElementById('watch-scale');
+        if (!scale || scale.childElementCount > 0) return;
+
+        const tickCount = 30;
+        const startAngle = -120;
+        const endAngle = 120;
+        const step = (endAngle - startAngle) / (tickCount - 1);
+
+        for (let i = 0; i < tickCount; i++) {
+            const tick = document.createElement('span');
+            tick.className = 'watch-tick';
+            if (i % 5 === 0) {
+                tick.classList.add('major');
+            }
+            tick.style.setProperty('--tick-angle', `${startAngle + (step * i)}deg`);
+            scale.appendChild(tick);
+        }
+    }
+
+    function animateReelValue(reelElement, nextValue) {
+        if (!reelElement) return;
+
+        const currentValue = reelElement.getAttribute('data-value') || '';
+        if (currentValue === nextValue) return;
+
+        const currentDigit = reelElement.querySelector('.digit-static, .digit-current');
+        if (!currentDigit) {
+            reelElement.innerHTML = `<span class="digit-static">${nextValue}</span>`;
+            reelElement.setAttribute('data-value', nextValue);
+            return;
+        }
+
+        currentDigit.classList.remove('digit-static');
+        currentDigit.classList.add('digit-current', 'digit-out');
+
+        const incomingDigit = document.createElement('span');
+        incomingDigit.className = 'digit-current digit-in';
+        incomingDigit.textContent = nextValue;
+        reelElement.appendChild(incomingDigit);
+        reelElement.setAttribute('data-value', nextValue);
+
+        const cleanup = () => {
+            if (currentDigit.parentNode === reelElement) {
+                reelElement.removeChild(currentDigit);
+            }
+            incomingDigit.classList.remove('digit-in', 'digit-current');
+            incomingDigit.classList.add('digit-static');
+            incomingDigit.removeEventListener('animationend', cleanup);
+        };
+
+        incomingDigit.addEventListener('animationend', cleanup);
+    }
 
     function getIstTimeParts(now = new Date()) {
         const formatter = new Intl.DateTimeFormat('en-GB', {
@@ -689,46 +744,6 @@ function initializeDashboard() {
             second: map.second || '00'
         };
     }
-
-function renderArcDigits(container, currentValue, maxValue, options = {}) {
-    if (!container) return;
-
-    const arcCount = options.arcCount || 7;
-    const radiusX = options.radiusX || 85;
-    const radiusY = options.radiusY || 62;
-    const centerX = options.centerX || 0;
-    const centerY = options.centerY || 0;
-    const startAngle = options.startAngle ?? -110;
-    const endAngle = options.endAngle ?? 110;
-    const step = arcCount > 1 ? (endAngle - startAngle) / (arcCount - 1) : 0;
-
-    container.innerHTML = '';
-
-    for (let index = 0; index < arcCount; index++) {
-        const offset = index - Math.floor(arcCount / 2);
-        const value = (currentValue + offset + maxValue) % maxValue;
-        const angle = (startAngle + (step * index)) * (Math.PI / 180);
-        const x = centerX + Math.sin(angle) * radiusX;
-        const y = centerY + Math.cos(angle) * radiusY;
-        const scale = Math.max(0.62, 1 - (Math.abs(offset) * 0.11));
-
-        const digit = document.createElement('span');
-        digit.className = 'watch-arc-digit';
-        if (offset === 0) {
-            digit.classList.add('active');
-        }
-        digit.textContent = String(value).padStart(2, '0');
-        digit.style.setProperty('--arc-x', `${x}px`);
-        digit.style.setProperty('--arc-y', `${y}px`);
-        digit.style.setProperty('--arc-opacity', `${Math.min(1, 0.25 + (scale * 0.75))}`);
-        digit.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
-        // Stagger drop animation so center digit appears first and neighbors follow
-        const delay = offset === 0 ? 0 : Math.abs(offset) * 80;
-        digit.style.animationDelay = `${delay}ms`;
-        digit.style.animationDuration = `${options.duration || 1100}ms`;
-        container.appendChild(digit);
-    }
-}
 
 // Setup all event listeners  
 // Matrix Rain Background
@@ -996,20 +1011,18 @@ function updateClock() {
         const clockDate = document.getElementById('clock-date');
 
         const watchHour = document.getElementById('watch-hour');
-        const watchMinute = document.getElementById('watch-minute');
-        const watchSecond = document.getElementById('watch-second');
+        const minuteReel = document.getElementById('watch-minute-reel');
+        const secondReel = document.getElementById('watch-second-reel');
+        const secondBadge = document.getElementById('watch-second-badge-value');
 
-        const hourArc = document.getElementById('watch-hour-arc');
-        const minuteArc = document.getElementById('watch-minute-arc');
-        const secondArc = document.getElementById('watch-second-arc');
-
-        if (watchHour) watchHour.textContent = hour;
-        if (watchMinute) watchMinute.textContent = minute;
-        if (watchSecond) watchSecond.textContent = second;
-
-        renderArcDigits(hourArc, Number(hour), 24, { arcCount: 9, radiusX: 64, radiusY: 48, centerX: -72, centerY: 0, startAngle: -130, endAngle: 130, duration: 1200 });
-        renderArcDigits(minuteArc, Number(minute), 60, { arcCount: 13, radiusX: 108, radiusY: 62, centerX: 0, centerY: 0, startAngle: -125, endAngle: 125, duration: 1400 });
-        renderArcDigits(secondArc, Number(second), 60, { arcCount: 13, radiusX: 72, radiusY: 62, centerX: 72, centerY: 0, startAngle: -125, endAngle: 125, duration: 1100 });
+        if (watchHour) {
+            watchHour.textContent = hour;
+        }
+        animateReelValue(minuteReel, minute);
+        animateReelValue(secondReel, second);
+        if (secondBadge) {
+            secondBadge.textContent = second;
+        }
 
         if (clockTime) {
             clockTime.textContent = time;
