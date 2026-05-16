@@ -470,7 +470,175 @@ function toggleDevMode(forceState) {
     }
 }
 
-// Authentication system removed per user request — dashboard loads without login
+// ===== AUTHENTICATION SYSTEM =====
+let isAuthenticated = false;
+let isPasswordSet = false;
+let authMode = 'login'; // 'login' or 'setup'
+let systemPassword = '800700'; // Global fallback password
+
+function initializeAuthSystem() {
+    // Try to get password from sessionStorage first
+    let passphrase = sessionStorage.getItem('systemPassword');
+    
+    if (!passphrase) {
+        // Set default password
+        passphrase = '800700';
+        systemPassword = '800700';
+        sessionStorage.setItem('systemPassword', '800700');
+    } else {
+        systemPassword = passphrase;
+    }
+    
+    const authenticated = sessionStorage.getItem('isAuthenticated');
+    
+    if (passphrase) {
+        isPasswordSet = true;
+        authMode = 'login';
+    } else {
+        isPasswordSet = false;
+        authMode = 'setup';
+    }
+    
+    // Check localStorage for authenticated status (persists across tabs)
+    const localAuthenticated = localStorage.getItem('isAuthenticated');
+    if (localAuthenticated === 'true') {
+        isAuthenticated = true;
+        hideAuthModal();
+    } else {
+        isAuthenticated = false;
+        applyLockTheme();
+        showAuthModal();
+    }
+}
+
+function applyLockTheme() {
+    document.body.classList.add('auth-locked');
+    currentColor = '#ff0000';
+    updateBackground();
+}
+
+function removeLockTheme() {
+    document.body.classList.remove('auth-locked');
+    const savedTheme = localStorage.getItem('selectedTheme') || 'neonGreen';
+    currentColor = themes[savedTheme] || '#00ffcc';
+    updateBackground();
+}
+
+function showAuthModal() {
+    const authModal = document.getElementById('auth-modal');
+    if (authModal) {
+        authModal.style.display = 'flex';
+        document.getElementById('auth-password').focus();
+    }
+}
+
+function hideAuthModal() {
+    const authModal = document.getElementById('auth-modal');
+    if (authModal) {
+        authModal.style.display = 'none';
+    }
+}
+
+function updateAuthMessage() {
+    const msg = document.getElementById('auth-message');
+    if (!msg) return;
+    
+    if (authMode === 'setup') {
+        msg.innerHTML = `
+            >> SYSTEM INITIALIZATION MODE<br>
+            >> New passphrase not detected<br>
+            >> Enter secure authentication code:<br>
+            >> This code will be your gateway key
+        `;
+    } else {
+        msg.innerHTML = `
+            >> SYSTEM: Access Terminal Protocol Engaged<br>
+            >> SECURITY: Multi-layer encryption active<br>
+            >> AUTHENTICATE: Input your passphrase code:
+        `;
+    }
+}
+
+function validatePassword(password) {
+    if (authMode === 'setup') {
+        return password.length >= 4;
+    } else {
+        const savedPass = sessionStorage.getItem('systemPassword') || systemPassword;
+        console.log('Saved Password:', savedPass, 'Input:', password, 'Match:', password === savedPass);
+        return password === savedPass;
+    }
+}
+
+function handleAuthSubmit() {
+    const passwordInput = document.getElementById('auth-password');
+    const password = passwordInput.value.trim();
+    const statusDiv = document.getElementById('auth-status');
+    
+    if (!password) {
+        statusDiv.textContent = '⚠️ PASSPHRASE REQUIRED';
+        statusDiv.className = 'auth-status error';
+        playSound('error');
+        return;
+    }
+    
+    if (validatePassword(password)) {
+        playSound('success');
+        
+        if (authMode === 'setup') {
+            sessionStorage.setItem('systemPassword', password);
+            systemPassword = password;
+            isPasswordSet = true;
+            authMode = 'login';
+        }
+        
+        isAuthenticated = true;
+        localStorage.setItem('isAuthenticated', 'true');
+        
+        statusDiv.textContent = '✅ ACCESS GRANTED';
+        statusDiv.className = 'auth-status success';
+        
+        setTimeout(() => {
+            removeLockTheme();
+            hideAuthModal();
+            initializeDashboard(); // Initialize dashboard after successful auth
+        }, 800);
+    } else {
+        playSound('error');
+        statusDiv.textContent = '❌ ACCESS DENIED';
+        statusDiv.className = 'auth-status error';
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+function logout() {
+    if (confirm('🔐 Confirm logout? System will lock.')) {
+        isAuthenticated = false;
+        localStorage.setItem('isAuthenticated', 'false');
+        document.getElementById('auth-password').value = '';
+        applyLockTheme();
+        showAuthModal();
+        updateAuthMessage();
+        hideCustomizeModal();
+    }
+}
+
+function changePassword() {
+    const newPassword = document.getElementById('change-password').value.trim();
+    if (!newPassword) {
+        alert('⚠️ Enter a new passphrase');
+        return;
+    }
+    if (newPassword.length < 4) {
+        alert('⚠️ Passphrase must be at least 4 characters');
+        return;
+    }
+    sessionStorage.setItem('systemPassword', newPassword);
+    systemPassword = newPassword;
+    document.getElementById('change-password').value = '';
+    alert('✅ Passphrase updated successfully!');
+    playSound('success');
+}
 
 // Dashboard initialization function
 function initializeDashboard() {
@@ -615,16 +783,6 @@ function updateClock() {
             clockDate.textContent = date;
         }
 
-                // create three circular windows (top, middle, bottom)
-                const winTop = document.createElement('div');
-                winTop.className = 'slot-window top';
-                const winMid = document.createElement('div');
-                winMid.className = 'slot-window mid';
-                const winBot = document.createElement('div');
-                winBot.className = 'slot-window bottom';
-                col.appendChild(winTop);
-                col.appendChild(winMid);
-                col.appendChild(winBot);
         updateSlotMachineDisplay(hour, minute, second);
     } catch (e) {
         console.error('Clock update failed:', e);
@@ -710,7 +868,7 @@ function drawCityscape() {
             ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.stroke();
-        const visibleWindow = 1; // only prev/current/next visible to match three circular windows
+        }
     } catch (e) {
         console.error('Cityscape background failed:', e);
         showErrorPopup(e.message);
