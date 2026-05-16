@@ -783,6 +783,16 @@ function updateClock() {
             clockDate.textContent = date;
         }
 
+                // create three circular windows (top, middle, bottom)
+                const winTop = document.createElement('div');
+                winTop.className = 'slot-window top';
+                const winMid = document.createElement('div');
+                winMid.className = 'slot-window mid';
+                const winBot = document.createElement('div');
+                winBot.className = 'slot-window bottom';
+                col.appendChild(winTop);
+                col.appendChild(winMid);
+                col.appendChild(winBot);
         updateSlotMachineDisplay(hour, minute, second);
     } catch (e) {
         console.error('Clock update failed:', e);
@@ -868,7 +878,7 @@ function drawCityscape() {
             ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.stroke();
-        }
+        const visibleWindow = 1; // only prev/current/next visible to match three circular windows
     } catch (e) {
         console.error('Cityscape background failed:', e);
         showErrorPopup(e.message);

@@ -396,6 +396,28 @@ body.auth-locked .main-content {
     border-radius: 28px;
 }
 
+/* three circular overlay windows inside each column */
+.slot-window {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(var(--slot-size, 80px) * 0.48);
+    height: calc(var(--slot-size, 80px) * 0.48);
+    border-radius: 50%;
+    border: 1.6px solid rgba(0,255,204,0.9);
+    box-shadow: 0 0 14px rgba(0,255,204,0.35), inset 0 0 6px rgba(0,255,204,0.06);
+    background: rgba(0,0,0,0.08);
+    pointer-events: none;
+    z-index: 500;
+}
+.slot-window.top { top: 22%; }
+.slot-window.mid { top: 50%; transform: translate(-50%, -50%); }
+.slot-window.bottom { top: 78%; }
+
+/* ensure the window overlays appear above the digit elements */
+.slot-column .slot-number { z-index: 200; }
+.slot-column .slot-window { z-index: 600; }
+
 /* Position each column absolutely and set circular sizes (big → small) */
 #slot-h1 {
     --slot-size: 220px;
