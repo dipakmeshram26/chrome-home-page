@@ -36,6 +36,7 @@ body {
 }
 
 @keyframes glitchBg {
+
     0%,
     100% {
         filter: none;
@@ -77,6 +78,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -100,6 +102,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -192,9 +195,19 @@ body {
 }
 
 @keyframes authSuccess {
-    0% { transform: scale(0.9); opacity: 0; }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .auth-status.error {
@@ -204,9 +217,19 @@ body {
 }
 
 @keyframes authShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
 }
 
 /* Red theme when locked */
@@ -308,69 +331,118 @@ body.auth-locked .main-content {
 }
 
 .slot-machine-clock {
-    width: 280px;
-    height: 250px;
-    background: rgba(0, 0, 0, 0.7);
+    position: relative;
+    width: 900px;
+    height: 300px;
+    /* background: rgba(0, 0, 0, 0.7); */
     /* border: 2px solid #00ffcc; */
+    background-color: #000000;
     border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: block;
     font-family: 'Orbitron', monospace;
     font-size: 1em;
     font-weight: bold;
     color: #00ffcc;
     /* text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc; */
     /* box-shadow: 0 0 20px #00ffcc inset, 0 0 30px #00ffcc; */
-    overflow: hidden;
+    overflow: visible;
     --slot-step: 38px;
+
 }
 
 .slot-column {
-    position: relative;
-    width: 50px;
-    height: 220px;
-    background: radial-gradient(ellipse at 50% 30%, rgba(12,40,48,0.96) 0%, rgba(8,26,36,0.94) 35%, rgba(4,12,18,0.86) 70%), linear-gradient(180deg, rgba(0,20,40,0.98), rgba(0,10,20,0.96));
-    border: 1px solid transparent;
-    border-radius: 28px;
+    position: absolute;
+    width: 80px;
+    height: 260px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(12, 40, 48, 0.96) 0%, rgba(8, 26, 36, 0.94) 35%, rgba(4, 12, 18, 0.86) 70%), linear-gradient(180deg, rgba(0, 20, 40, 0.98), rgba(0, 10, 20, 0.96));
+    border: 3px solid #00ffcc;
+    border-radius: 50%;
     overflow: hidden;
     display: block;
-    perspective: 1400px;
-    -webkit-perspective: 1400px;
-    perspective-origin: 50% 40%;
+    perspective: 480px;
+    -webkit-perspective: 480px;
+    perspective-origin: 50% 45%;
     transform-style: preserve-3d;
-    box-shadow: inset 0 0 36px rgba(0,0,0,0.65), inset 6px 0 32px rgba(0,255,204,0.03), inset -6px 0 32px rgba(0,255,204,0.02);
+    box-shadow: inset 0 0 36px rgba(0, 0, 0, 0.65), inset 6px 0 32px rgba(0, 255, 204, 0.03), inset -6px 0 32px rgba(0, 255, 204, 0.02), 0 0 20px rgba(0, 255, 204, 0.4);
     /* subtle inner neon ring */
-    outline: 1px solid rgba(0,255,204,0.06);
+    outline: none;
+    z-index: 1000;
 }
 
 .slot-column::before {
-    /* subtle glossy highlight */
+    /* circular digit display window with neon border */
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0%;
-    bottom: 0%;
-    /* Combined top highlight and bottom shadow to create symmetric curvature */
-    background: radial-gradient(ellipse at 50% 12%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.00) 40%), radial-gradient(ellipse at 50% 88%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 45%);
+    top: 50%;
+    left: 50%;
+    width: calc(var(--slot-size, 80px) * 0.48);
+    height: calc(var(--slot-size, 80px) * 0.48);
+    transform: translate(-50%, -50%);
+    border: 1.8px solid #00ffcc;
+    border-radius: 50%;
     pointer-events: none;
-    border-radius: 26px;
+    z-index: 100;
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.5), inset 0 0 8px rgba(0, 255, 204, 0.15);
+    background: radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
 }
 
 .slot-column::after {
-    /* bottom shadow to emphasize curvature */
+    /* vertical vignette overlay to fade edges */
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 18%;
-    background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.55));
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.55) 100%);
     pointer-events: none;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-radius: 28px;
+}
+
+/* Position each column absolutely and set circular sizes (big → small) */
+#slot-h1 {
+    --slot-size: 220px;
+    width: 220px;
+    height: 220px;
+    top: 40px;
+    left: 10px;
+}
+
+#slot-h2 {
+    --slot-size: 190px;
+    width: 190px;
+    height: 190px;
+    top: 55px;
+    left: 165px;
+}
+
+#slot-m1 {
+    --slot-size: 160px;
+    width: 160px;
+    height: 160px;
+    top: 70px;
+    left: 320px;
+}
+
+#slot-m2 {
+    --slot-size: 130px;
+    width: 130px;
+    height: 130px;
+    top: 85px;
+    left: 475px;
+}
+
+#slot-s1 {
+    --slot-size: 100px;
+    width: 100px;
+    height: 100px;
+    top: 100px;
+    left: 630px;
+}
+
+#slot-s2 {
+    --slot-size: 80px;
+    width: 80px;
+    height: 80px;
+    top: 110px;
+    left: 780px;
 }
 
 /* inner neon rounded stroke to mimic the image border */
@@ -383,7 +455,7 @@ body.auth-locked .main-content {
     position: absolute;
     inset: 6px;
     border-radius: 20px;
-    border: 2px solid rgba(0,255,204,0.07);
+    border: 2px solid rgba(0, 255, 204, 0.07);
     pointer-events: none;
 }
 
@@ -394,13 +466,15 @@ body.auth-locked .main-content {
     top: 6px;
     height: 8px;
     border-radius: 6px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
     pointer-events: none;
 }
 
 .slot-column::marker {
     display: none;
 }
+
+/* removed older duplicate size overrides */
 
 .slot-number {
     position: absolute;
@@ -415,19 +489,44 @@ body.auth-locked .main-content {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     /* rotateX to curve digits vertically; rotateY+translateX adds horizontal curvature to simulate wrap */
-    transform: translateY(-50%) rotateX(calc(var(--slot-offset, 0) * -26deg)) translateZ(48px) rotateY(calc(var(--slot-offset, 0) * 10deg)) translateX(calc(var(--slot-offset, 0) * -10px));
+    transform: translateY(-50%) rotateX(calc(var(--slot-offset, 0) * -78deg)) translateZ(56px) rotateY(calc(var(--slot-offset, 0) * 22deg)) translateX(calc(var(--slot-offset, 0) * -16px));
     opacity: 0;
     color: #00ffcc;
     transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s ease, filter 0.25s ease;
-    font-size: 0.82em;
+    font-size: 0.9em;
     line-height: 1;
     will-change: transform, opacity;
+}
+
+/* Scale base font-size per slot so digits fit circles */
+#slot-h1 .slot-number {
+    font-size: 1.6em;
+}
+
+#slot-h2 .slot-number {
+    font-size: 1.4em;
+}
+
+#slot-m1 .slot-number {
+    font-size: 1.2em;
+}
+
+#slot-m2 .slot-number {
+    font-size: 1.05em;
+}
+
+#slot-s1 .slot-number {
+    font-size: 0.95em;
+}
+
+#slot-s2 .slot-number {
+    font-size: 0.85em;
 }
 
 .slot-number.current {
     opacity: 1;
     font-weight: bold;
-    font-size: 1.6em;
+    /* current digit inherits base size and is emphasized by transform/depth */
     text-shadow: 0 0 10px #00ffcc, 0 0 26px #00ffcc;
     z-index: 10;
     filter: brightness(1.2);
@@ -435,17 +534,20 @@ body.auth-locked .main-content {
 
 /* Explicit transforms for visible positions to accentuate the drum curvature */
 .slot-number.current {
-    transform: translateY(-50%) rotateX(0deg) translateZ(110px) rotateY(0deg) translateX(0px);
+    transform: translateY(-50%) rotateX(0deg) translateZ(140px) rotateY(0deg) translateX(0px);
 }
+
 .slot-number.next {
-    transform: translateY(-50%) rotateX(-36deg) translateZ(72px) rotateY(-12deg) translateX(12px);
+    transform: translateY(-50%) rotateX(-80deg) translateZ(82px) rotateY(-26deg) translateX(24px);
 }
+
 .slot-number.prev {
-    transform: translateY(-50%) rotateX(36deg) translateZ(72px) rotateY(12deg) translateX(-12px);
+    transform: translateY(-50%) rotateX(80deg) translateZ(82px) rotateY(26deg) translateX(-24px);
 }
+
 .slot-number.visible {
     /* slight inward push for non-current visible digits */
-    transform: translateY(-50%) rotateX(calc(var(--slot-offset, 0) * -26deg)) translateZ(48px) rotateY(calc(var(--slot-offset, 0) * 10deg)) translateX(calc(var(--slot-offset, 0) * -10px));
+    transform: translateY(-50%) rotateX(calc(var(--slot-offset, 0) * -78deg)) translateZ(56px) rotateY(calc(var(--slot-offset, 0) * 22deg)) translateX(calc(var(--slot-offset, 0) * -16px));
 }
 
 .slot-number.next {
@@ -463,9 +565,20 @@ body.auth-locked .main-content {
 }
 
 .slot-separator {
-    font-size: 0.8em;
+    position: absolute;
+    font-size: 2em;
     opacity: 0.8;
-    margin: 0 2px;
+    color: #00ffcc;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slot-separator:nth-of-type(1) {
+    left: 180px;
+}
+
+.slot-separator:nth-of-type(2) {
+    left: 370px;
 }
 
 .clock-fallback {
@@ -831,18 +944,38 @@ body.auth-locked .main-content {
     animation: voiceBars 0.8s ease-in-out infinite;
 }
 
-.voice-popup.listening .voice-anim span:nth-child(2) { animation-delay: 0.1s; }
-.voice-popup.listening .voice-anim span:nth-child(3) { animation-delay: 0.2s; }
-.voice-popup.listening .voice-anim span:nth-child(4) { animation-delay: 0.3s; }
-.voice-popup.listening .voice-anim span:nth-child(5) { animation-delay: 0.4s; }
-
-@keyframes voiceBars {
-    0%, 100% { height: 6px; opacity: 0.5; }
-    50% { height: 22px; opacity: 1; }
+.voice-popup.listening .voice-anim span:nth-child(2) {
+    animation-delay: 0.1s;
 }
 
-#terminal-input-post-login{
- box-shadow: none;
+.voice-popup.listening .voice-anim span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.voice-popup.listening .voice-anim span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.voice-popup.listening .voice-anim span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+@keyframes voiceBars {
+
+    0%,
+    100% {
+        height: 6px;
+        opacity: 0.5;
+    }
+
+    50% {
+        height: 22px;
+        opacity: 1;
+    }
+}
+
+#terminal-input-post-login {
+    box-shadow: none;
 }
 
 
@@ -1321,7 +1454,7 @@ body.auth-locked .main-content {
 
 
 #speed-test {
-       /* text-align: center; */
+    /* text-align: center; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1412,10 +1545,10 @@ body.auth-locked .main-content {
     }
 
     .terminal pre {
-    font-size: 1.2em;
+        font-size: 1.2em;
     }
 
-    #weather.neon-text{
+    #weather.neon-text {
         font-size: 1em;
     }
 }
@@ -1435,16 +1568,40 @@ body.auth-locked .main-content {
     }
 
     .slot-machine-clock {
-        width: 240px;
-        height: 122px;
-        font-size: 2.8em;
-        gap: 6px;
+        width: 500px;
+        height: 240px;
+        font-size: 2.2em;
         --slot-step: 18px;
     }
 
     .slot-column {
-        width: 42px;
-        height: 84px;
+        width: 65px;
+        height: 220px;
+    }
+
+    /* Mobile positioning for columns */
+    #slot-h1 {
+        left: 8px;
+    }
+
+    #slot-h2 {
+        left: 76px;
+    }
+
+    #slot-m1 {
+        left: 158px;
+    }
+
+    #slot-m2 {
+        left: 226px;
+    }
+
+    #slot-s1 {
+        left: 308px;
+    }
+
+    #slot-s2 {
+        left: 376px;
     }
 
     .clock span {
@@ -1657,9 +1814,17 @@ body.auth-locked .main-content {
     cursor: pointer;
 }
 
-.window-control.close { background: #ff5f57; }
-.window-control.minimize { background: #ffbd2e; }
-.window-control.maximize { background: #28c840; }
+.window-control.close {
+    background: #ff5f57;
+}
+
+.window-control.minimize {
+    background: #ffbd2e;
+}
+
+.window-control.maximize {
+    background: #28c840;
+}
 
 .search-window-title {
     flex: 1;
