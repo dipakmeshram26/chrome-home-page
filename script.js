@@ -2085,6 +2085,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Initialize dashboard
         initializeDashboard();
+    } catch (e) {
+        console.error('DOMContentLoaded failed:', e);
+        showErrorPopup(e.message);
+    }
+});
 
 // Setup all event listeners
 function setupEventListeners() {
