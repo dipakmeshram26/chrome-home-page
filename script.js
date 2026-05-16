@@ -647,15 +647,12 @@ function initializeDashboard() {
         loadTiles();
         backgroundInterval = initMatrixRain();
         updateBackground();
-        buildSlotMachineClock();
-        updateClock();
         applyToggles();
         initQuote();
         updateWeatherDisplay();
         fetchWeather();
         autoDetectNetworkSpeed();
         toggleDevMode(devModeEnabled);
-        setInterval(updateClock, 1000);
         setInterval(fetchWeather, WEATHER_REFRESH_INTERVAL_MS);
         setInterval(autoDetectNetworkSpeed, 30000);
         
@@ -667,127 +664,7 @@ function initializeDashboard() {
     }
 }
 
-    function buildSlotMachineClock() {
-        const columns = {
-            'slot-h1': { min: 0, max: 2 },
-            'slot-h2': { min: 0, max: 9 },
-            'slot-m1': { min: 0, max: 5 },
-            'slot-m2': { min: 0, max: 9 },
-            'slot-s1': { min: 0, max: 5 },
-            'slot-s2': { min: 0, max: 9 }
-        };
 
-        Object.entries(columns).forEach(([colId, range]) => {
-        const col = document.getElementById(colId);
-        if (!col || col.children.length > 0) return;
-
-            col.dataset.min = String(range.min);
-            col.dataset.max = String(range.max);
-
-            for (let i = range.min; i <= range.max; i += 1) {
-            const num = document.createElement('div');
-            num.className = 'slot-number';
-                num.textContent = String(i);
-                num.dataset.value = String(i);
-            col.appendChild(num);
-        }
-    });
-}
-
-function updateSlotMachineDisplay(h, m, s) {
-    const updates = {
-            'slot-h1': parseInt(String(h).padStart(2, '0')[0], 10),
-            'slot-h2': parseInt(String(h).padStart(2, '0')[1], 10),
-            'slot-m1': parseInt(String(m).padStart(2, '0')[0], 10),
-            'slot-m2': parseInt(String(m).padStart(2, '0')[1], 10),
-            'slot-s1': parseInt(String(s).padStart(2, '0')[0], 10),
-            'slot-s2': parseInt(String(s).padStart(2, '0')[1], 10)
-    };
-
-    Object.entries(updates).forEach(([colId, value]) => {
-        const col = document.getElementById(colId);
-        if (!col) return;
-
-            const min = parseInt(col.dataset.min || '0', 10);
-            const max = parseInt(col.dataset.max || '0', 10);
-            const range = (max - min) + 1;
-            const visibleWindow = 2;
-        const numbers = col.querySelectorAll('.slot-number');
-        numbers.forEach((num) => {
-                const digit = parseInt(num.dataset.value || '0', 10);
-                let offset = digit - value;
-                if (range > 0) {
-                    const half = Math.floor(range / 2);
-                    if (offset > half) {
-                        offset -= range;
-                    } else if (offset < -half) {
-                        offset += range;
-                    }
-                }
-
-                const visible = Math.abs(offset) <= visibleWindow;
-                num.style.setProperty('--slot-offset', offset);
-                num.classList.toggle('current', offset === 0);
-                num.classList.toggle('next', offset === 1);
-                num.classList.toggle('prev', offset === -1);
-                num.classList.toggle('visible', visible && offset !== 0);
-
-                if (visible) {
-                    num.style.opacity = offset === 0 ? '1' : String(Math.max(0.42, 1 - (Math.abs(offset) * 0.18)));
-                } else {
-                    num.style.opacity = '0';
-                }
-
-                if (offset === 0) {
-                num.classList.add('current');
-                } else if (offset === 1) {
-                    num.classList.add('next');
-                } else if (offset === -1) {
-                    num.classList.add('prev');
-            }
-        });
-    });
-}
-
-// Clock
-function updateClock() {
-    try {
-        const now = new Date();
-        const formatter = new Intl.DateTimeFormat('en-GB', {
-            timeZone: 'Asia/Kolkata',
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-        const parts = formatter.formatToParts(now);
-        const map = {};
-        parts.forEach((part) => {
-            if (part.type !== 'literal') {
-                map[part.type] = part.value;
-            }
-        });
-        const hour = parseInt(map.hour || '00');
-        const minute = parseInt(map.minute || '00');
-        const second = parseInt(map.second || '00');
-        const time = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
-        const date = now.toLocaleDateString('en-US', { timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', year: 'numeric' });
-
-        const clockTime = document.getElementById('clock-time');
-        const clockDate = document.getElementById('clock-date');
-
-        if (clockTime) {
-            clockTime.textContent = time;
-        }
-        if (clockDate) {
-            clockDate.textContent = date;
-        }
-
-        updateSlotMachineDisplay(hour, minute, second);
-    } catch (e) {
-        console.error('Clock update failed:', e);
-        showErrorPopup(e.message);
-    }
 }
 
 // Matrix Rain Background
